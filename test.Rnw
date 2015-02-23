@@ -69,19 +69,19 @@
 \begin{document}
 
 <<external-code, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE>>=
-#read_chunk('./get_code.R')
-source_github <- function(u) {
-    # load package
-    require(RCurl)
-    
-    # read script lines from website and evaluate
-    script <- getURL(u, ssl.verifypeer = FALSE)
-    eval(parse(text = script), envir = .GlobalEnv)
-}  
-
-source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
-source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/L3_emergencies_2015.R")
-source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/test.R")
+read_chunk('./get_code.R')
+# source_github <- function(u) {
+#     # load package
+#     require(RCurl)
+#     
+#     # read script lines from website and evaluate
+#     script <- getURL(u, ssl.verifypeer = FALSE)
+#     eval(parse(text = script), envir = .GlobalEnv)
+# }  
+# 
+# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
+# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/L3_emergencies_2015.R")
+# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/test.R")
 @
 
 <<setup, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=
