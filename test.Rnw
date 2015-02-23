@@ -68,28 +68,39 @@
 
 \begin{document}
 
+% <<external-code, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE>>=
+% # read_chunk('./get_code.R')
+% source_github <- function(u) {
+%     # load package
+%     require(RCurl)
+%     
+%     # read script lines from website and evaluate
+%     script <- getURL(u, ssl.verifypeer = FALSE)
+%     eval(parse(text = script), envir = .GlobalEnv)
+% }  
+% 
+% source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
+% # source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/L3_emergencies_2015.R")
+% # source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/test.R")
+% @
+
 <<external-code, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE>>=
 # read_chunk('./get_code.R')
-source_github <- function(u) {
-    # load package
-    require(RCurl)
+require(RCurl)
     
-    # read script lines from website and evaluate
-    script <- getURL(u, ssl.verifypeer = FALSE)
-    eval(parse(text = script), envir = .GlobalEnv)
-}  
-
-source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
-# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/L3_emergencies_2015.R")
-# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/test.R")
+# read script lines from website and evaluate
+script <- getURL("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R", ssl.verifypeer = FALSE)
+eval(parse(text = script), envir = .GlobalEnv)
 @
 
 <<cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE>>=
-source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/L3_emergencies_2015.R")
+script <- getURL("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/L3_emergencies_2015.R", ssl.verifypeer = FALSE)
+eval(parse(text = script), envir = .GlobalEnv)
 @
 
 <<cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE>>=
-source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/test.R")
+script <- getURL("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/test.R", ssl.verifypeer = FALSE)
+eval(parse(text = script), envir = .GlobalEnv)
 @
 
 <<setup, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=
