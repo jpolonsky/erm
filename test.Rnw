@@ -68,21 +68,21 @@
 
 \begin{document}
 
-% <<external-code, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE>>=
-% read_chunk('./get_code.R')
-% # source_github <- function(u) {
-% #     # load package
-% #     require(RCurl)
-% #     
-% #     # read script lines from website and evaluate
-% #     script <- getURL(u, ssl.verifypeer = FALSE)
-% #     eval(parse(text = script), envir = .GlobalEnv)
-% # }  
-% # 
-% # source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
-% # source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/L3_emergencies_2015.R")
-% # source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/test.R")
-% @
+<<external-code, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE>>=
+# read_chunk('./get_code.R')
+source_github <- function(u) {
+    # load package
+    require(RCurl)
+    
+    # read script lines from website and evaluate
+    script <- getURL(u, ssl.verifypeer = FALSE)
+    eval(parse(text = script), envir = .GlobalEnv)
+}  
+
+source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
+source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/L3_emergencies_2015.R")
+source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/test.R")
+@
 
 <<setup, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=
 opts_chunk$set(cache=FALSE,message=FALSE, echo=FALSE, warning=FALSE, results='asis')
@@ -90,16 +90,16 @@ opts_chunk$set(cache=FALSE,message=FALSE, echo=FALSE, warning=FALSE, results='as
 knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 1)})
 
-load("./2.analysed2015.RData")
-
-if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
-if(!require(ggplot2)) {install.packages("ggplot2"); require(ggplot2)}
-if(!require(dplyr)) {install.packages("dplyr"); require(dplyr)}
-if(!require(reshape2)) {install.packages("reshape2"); require(reshape2)}
-if(!require(scales)) {install.packages("scales"); require(scales)}
+# load("./2.analysed2015.RData")
+# 
+# if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
+# if(!require(ggplot2)) {install.packages("ggplot2"); require(ggplot2)}
+# if(!require(dplyr)) {install.packages("dplyr"); require(dplyr)}
+# if(!require(reshape2)) {install.packages("reshape2"); require(reshape2)}
+# if(!require(scales)) {install.packages("scales"); require(scales)}
 if(!require(xtable)) {install.packages("xtable"); require(xtable)}
-
-source('./my_functions.R')
+# 
+# source('./my_functions.R')
 @
 
 \begin{titlepage}
