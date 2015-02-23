@@ -108,13 +108,13 @@ if(!require(xtable)) {install.packages("xtable"); require(xtable)}
 % Organisation logos
 \begin{minipage}{0.45\textwidth}
 \begin{flushleft}\large
-\includegraphics[width=0.95\textwidth]{./figure/logo_who}~\\[1cm]
+\includegraphics[width=0.95\textwidth]{./logo_who}~\\[1cm]
 \end{flushleft}
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\textwidth}
 \begin{flushright}\large
-\includegraphics[width=0.95\textwidth]{./figure/logo_prime_cropped}~\\[1cm]
+\includegraphics[width=0.95\textwidth]{./logo_prime}~\\[1cm]
 \end{flushright}
 \end{minipage}\\[4.0cm]
 
