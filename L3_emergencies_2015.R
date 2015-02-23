@@ -162,5 +162,5 @@ bar_chart <-
 #ggsave(file = 'fig_bar_chart.pdf', width = 12, height = 8)
 
 
-# save.image("./2.analysed2015.RData")
+save.image("./2.analysed2015.RData")
 
