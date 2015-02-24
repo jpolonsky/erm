@@ -81,7 +81,6 @@ source_github <- function(u) {
 
 source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
 source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/prepare_data.R")
-# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/test.R")
 @
 
 <<setup, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=

@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-cp ~/Dropbox/who/erm_finan_report/'2012 pledges and contributions.xlsx' ~/Desktop
+cp ~/Dropbox/who/l3_emergencies/data/'2012 pledges and contributions.xlsx' ~/Desktop
 cd ~/Desktop
 
 curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/ERM_Financial_Report.Rnw >> ERM_Financial_Report.Rnw
@@ -18,8 +18,6 @@ rmdir figure
 old_filename="ERM_Financial_Report.pdf"
 new_filename=${old_filename%.*}$(date "+_%Y%m%d").${old_filename##*.}
 mv "$old_filename" "$new_filename"
-
-cp "$new_filename" ~/Dropbox/who/erm_finan_report/
 
 # uuencode ERM_Financial_Report_20150224.pdf ERM_Financial_Report_20150224.pdf | mail -s "Updated ERM financial report" jonny.polonsky@gmail.com
 uuencode "$new_filename" "$new_filename" | mail -s "Updated ERM financial report" jonny.polonsky@gmail.com
