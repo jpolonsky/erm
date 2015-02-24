@@ -17,4 +17,7 @@ old_filename="ERM_Financial_Report.pdf"
 new_filename=${old_filename%.*}$(date "+_%Y%m%d").${old_filename##*.}
 mv "$old_filename" "$new_filename"
 
+# uuencode ERM_Financial_Report_20150224.pdf ERM_Financial_Report_20150224.pdf | mail -s "Updated ERM financial report" jonny.polonsky@gmail.com
+uuencode "$new_filename" "$new_filename" | mail -s "Updated ERM financial report" jonny.polonsky@gmail.com
+
 exit 0
