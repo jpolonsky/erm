@@ -1,6 +1,6 @@
 \documentclass[12pt,a4paper]{article}
 
-\usepackage[top=1.1in, bottom=1.1in, left=1in, right=1in]{geometry}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage[UKenglish]{babel,isodate,datetime}% http://ctan.org/pkg/babel

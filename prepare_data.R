@@ -5,7 +5,7 @@ if(!require(dplyr)) {install.packages("dplyr"); require(dplyr)}
 if(!require(reshape2)) {install.packages("reshape2"); require(reshape2)}
 if(!require(scales)) {install.packages("scales"); require(scales)}
 if(!require(RColorBrewer)) {install.packages("RColorBrewer"); require(RColorBrewer)}
-if(!require(extrafont)) {install.packages("extrafont"); require(extrafont)}
+#if(!require(extrafont)) {install.packages("extrafont"); require(extrafont)}
 
 wb <- loadWorkbook('./2012 pledges and contributions.xlsx', create = F)
 df_raw <- readWorksheet(wb, sheet = "Contribution data", startRow = 2)
