@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+# source ~/.bash_profile
+export PATH=$PATH:/usr/texbin
+
 cp ~/Dropbox/who/erm_finan_report/'2012 pledges and contributions.xlsx' ~/Desktop
 cd ~/Desktop
 
