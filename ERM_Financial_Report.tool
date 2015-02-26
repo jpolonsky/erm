@@ -22,12 +22,14 @@ old_filename="ERM_Financial_Report.pdf"
 new_filename=${old_filename%.*}$(date "+_%Y%m%d").${old_filename##*.}
 mv "$old_filename" "$new_filename"
 
-# cp "$new_filename" ~/Dropbox/who/erm_finan_report/
 mv "$new_filename" ~/Dropbox/who/erm_finan_report/
 
 # uuencode "$new_filename" "$new_filename" | mail -s "Updated ERM financial report" jonny.polonsky@gmail.com
 
-## ssh jonathanpolonsky@10.29.10.166
-## ssh 10.29.10.166 "source ~/.bash_profile; $(< ~/"GITHUB repos/erm_finan_rep/ERM Financial Report.tool")"
+## ssh jonathanpolonsky@10.29.10.99
+## ssh 10.29.10.99 "source ~/.bash_profile; $(< ~/"GITHUB repos/erm_finan_rep/ERM Financial Report.tool")"
+
+## ssh jonathanpolonsky@Jonathans-MacBook-Pro
+## ssh Jonathans-MacBook-Pro "source ~/.bash_profile; $(< ~/"GITHUB repos/erm_finan_rep/ERM Financial Report.tool")"
 
 exit 0
