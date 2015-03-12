@@ -1,5 +1,6 @@
 # Load required packages
 # if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
+if(!require(xlsx)) {install.packages("xlsx"); require(xlsx)}
 if(!require(ggplot2)) {install.packages("ggplot2"); require(ggplot2)}
 if(!require(dplyr)) {install.packages("dplyr"); require(dplyr)}
 if(!require(reshape2)) {install.packages("reshape2"); require(reshape2)}
@@ -15,7 +16,6 @@ filename <- list.files(path = '.', pattern = "xlsx")
 # df_extra <- readWorksheet(wb, sheet = "Soft pledges-other ctrbns 2015", startRow = 2)
 # df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 2)
 
-require(xlsx)
 df_raw <- read.xlsx2(filename, sheetName = "Contribution data", startRow = 2)
 df_extra <- read.xlsx2(filename, sheetName = "Soft pledges-other ctrbns 2015", startRow = 2)
 df_filter <- read.xlsx2(filename, sheetName = "SRP 2015 funds requested", startRow = 3)
