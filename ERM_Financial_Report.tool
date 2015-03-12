@@ -11,7 +11,8 @@ curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/ERM_Financ
 curl -o logo_who.pdf 'http://www.pdf-archive.com/2015/02/24/logo-who/logo-who.pdf' 
 curl -o logo_prime.pdf 'http://www.pdf-archive.com/2015/02/24/logo-prime/logo-prime.pdf' 
 
-Rscript -e "library(knitr); knit('ERM_Financial_Report_online.Rnw')"
+# Rscript -e "library(knitr); knit('ERM_Financial_Report_online.Rnw')"
+Rscript -e "if(!require(knitr)) {install.packages("knitr"); require(knitr)}; knit('ERM_Financial_Report_online.Rnw')"
 pdflatex ERM_Financial_Report_online.tex
 
 old_filename="ERM_Financial_Report_online.pdf"
