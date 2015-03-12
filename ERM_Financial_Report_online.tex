@@ -1,0 +1,196 @@
+\documentclass[12pt,a4paper]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage[UKenglish]{babel,isodate,datetime}% http://ctan.org/pkg/babel
+\usepackage[nottoc]{tocbibind}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{-2}
+
+\usepackage{amsmath,amssymb} %allows use of maths symbols
+
+\makeatletter % this renews the paragraph setting to behave more like a 'subsubsubsection'
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+            {-2.5ex\@plus -1ex \@minus -.25ex}%
+            {1.25ex \@plus .25ex}%
+            {\normalfont\normalsize\bfseries}}
+\makeatother
+
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\usepackage{lastpage}
+\fancyhf[HRO]{Ongoing emergencies: contributions \& pledges}
+\fancyhf[HLO]{}
+\fancyhf[HRE]{}
+\fancyfoot[C]{\sffamily\fontsize{9pt}{9pt}\selectfont\thepage}
+
+
+\raggedbottom
+\setlength\parindent{0pt} % sets indent to zero
+\setlength{\parskip}{2mm}
+
+\usepackage{hyperref}
+\usepackage[usenames,dvipsnames]{xcolor}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=BlueViolet,
+    urlcolor=BlueViolet
+}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[lining,scaled=.95]{ebgaramond} %EB Garamond font 
+\usepackage[default,scale=0.95]{opensans}
+\usepackage[T1]{fontenc}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage{pdfpages} %for inserting PDFs into document
+\usepackage[labelfont=bf]{caption}
+\usepackage{colortbl, xcolor}
+\definecolor{whoblue}{rgb}{0.00, 0.60, 0.80}
+    
+\usepackage{soul} %for highlighting text [\hl{TEXT}]
+\usepackage{rotating}
+\usepackage{caption}
+
+\usepackage{float}
+\floatplacement{figure}{H}
+
+\makeatletter
+\newenvironment{keeppage}{\let\thispagestyle=\@gobble}{}
+\makeatother
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in parse(text = script): <text>:2:76: unexpected input\\\#\# 1: \# Load required packages\\\#\# 2: if(!require(XLConnect)) \{install.packages("{}XLConnect"{}); require(XLConnect)\}\\\#\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  \textasciicircum{}}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}loadWorkbook"{}}}\end{kframe}
+\end{knitrout}
+
+
+
+\begin{titlepage}
+\begin{center}
+
+% Organisation logos
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft}\large
+\includegraphics[width=0.95\textwidth]{./logo_who}~\\[1cm]
+\end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+\begin{flushright}\large
+\includegraphics[width=0.95\textwidth]{./logo_prime}~\\[1cm]
+\end{flushright}
+\end{minipage}\\[4.0cm]
+
+% Title
+\HRule \\[0.3cm]
+%\textsc{\huge \bfseries Level 3 \& Level 2 emergencies,}\\[0.3cm]
+%\textsc{\huge \bfseries and ERM priority countries:}\\[0.3cm]
+%{\LARGE \bfseries Contributions and Firm Pledges}\\[0.2cm]
+\textsc{\huge Grade 3 and Grade 2 emergencies,}\\[0.4cm]
+\textsc{\huge and ERM priority countries:}\\[0.9cm]
+{\LARGE Contributions and Firm Pledges}\\[0.2cm]
+\HRule\\[1.5cm]
+\vfill
+
+\cleanlookdateon
+\textsc{\LARGE Weekly update: \today}%\\[0.2cm]
+
+\end{center}
+\end{titlepage}
+
+\section{Overview}
+\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in factor(df\_total\$status, levels = c("{}L3"{}, "{}L2"{}, "{}Priority"{}, "{}Other"{})): object 'df\_total' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'df\_total' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in names(df\_total) <- c("{}Appeal"{}, "{}Crisis type"{}, "{}Amount requested"{}, : object 'df\_total' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in nrow(df\_total): object 'df\_total' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'rws' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in format(x, ..., big.mark = "{} "{}, scientific = FALSE, trim = TRUE): object 'df\_total' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in align(z) <- "{}lllrrr"{}: object 'z' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in print(z, type = "{}latex"{}, booktabs = T, caption.placement = "{}top"{}, : object 'z' not found}}\end{kframe}
+
+\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'bar\_chart' not found}}\end{kframe}
+
+\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in as.data.frame(df\_donor): object 'df\_donor' not found}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'list\_status' not found}}\end{kframe}
+
+\end{document}
