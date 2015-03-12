@@ -28,6 +28,7 @@ rmdir figure
 
 
 mv "$new_filename" ~/Dropbox/who/erm_finan_report/
+open "$new_filename" ~/Dropbox/who/erm_finan_report/
 
 # uuencode "$new_filename" "$new_filename" | mail -s "Updated ERM financial report" jonny.polonsky@gmail.com
 
