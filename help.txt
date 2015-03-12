@@ -1,0 +1,14 @@
+ERM FINANCIAL TOOL v1.01 INSTALLATION INSTRUCTIONS:
+
+1. Be sure to install to the 'D' drive - installing to the 'C' drive will not work on most computers as we do not have admin rights by default
+
+2. Create a desktop shortcut to the location where the data updates will be placed (which is also where the report will be created by the programme). The location is 'K:\\clData\ERM_Financial_Tool'
+
+3. If it is not already there, put a copy of the latest datafile ("2012 pledges and contributions.xlsx") at this folder location ("K:\\clData\ERM_Financial_Tool")
+
+4. After installation, run the programme either by double-clicking the desktop shortcut (if one was created), or by going Start > All Programs > ERM Financial Tool > ERM Financial Tool
+
+please send comments, suggestions, and bug reports to:
+
+Jonathan POLONSKY
+polonskyj@who.int 
