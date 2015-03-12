@@ -75,6 +75,7 @@ df_total$prop_funded[is.na(df_total$prop_funded)] <- 0
 
 df_total$status <- factor(df_total$status, levels = c('L3', 'L2', 'Priority', 'Other'))
 df_total <- arrange(df_total, desc(prop_funded))
+df_total <- df_total %>% filter(!is.na(status))
 
 list_appeals_L3 <- sort(unique(df_total$appeal[df_total$status == 'L3']))
 list_appeals_priority <- sort(unique(df_total$appeal[df_total$status == 'Priority']))
