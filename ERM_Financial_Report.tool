@@ -14,10 +14,10 @@ curl -o logo_prime.pdf 'http://www.pdf-archive.com/2015/02/24/logo-prime/logo-pr
 Rscript -e "library(knitr); knit('ERM_Financial_Report_online.Rnw')"
 pdflatex ERM_Financial_Report_online.tex
 
-old_filename="ERM_Financial_Report.pdf"
+old_filename="ERM_Financial_Report_online.pdf"
 # new_filename=${old_filename%.*}$(date "+_%Y%m%d").${old_filename##*.}
-new_filename=${old_filename%.*}$(date "+_%Y%m%d").${old_filename##*.}
-mv "$old_filename" "$new_filename"
+# mv "$old_filename" "$new_filename"
+mv ERM_Financial_Report_online.pdf ERM_Financial_Report$(date "+_%Y%m%d").pdf
 
 # rm ERM_Financial_Report_online.aux ERM_Financial_Report_online.log ERM_Financial_Report_online.out ERM_Financial_Report_online.Rnw ERM_Financial_Report_online.tex ./figure/fig_pop-1.pdf logo_prime.pdf logo_who.pdf '2012 pledges and contributions.xlsx'
 rm ERM_Financial_Report_online.aux ERM_Financial_Report_online.log ERM_Financial_Report_online.out ERM_Financial_Report_online.Rnw ERM_Financial_Report_online.tex ./figure/fig_pop-1.pdf logo_prime.pdf logo_who.pdf '2012 pledges and contributions.xlsx'
