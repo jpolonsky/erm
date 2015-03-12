@@ -1,5 +1,6 @@
 # Load required packages
-#if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
+# if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
+library(XLConnect)
 if(!require(ggplot2)) {install.packages("ggplot2"); require(ggplot2)}
 if(!require(dplyr)) {install.packages("dplyr"); require(dplyr)}
 if(!require(reshape2)) {install.packages("reshape2"); require(reshape2)}
