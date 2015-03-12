@@ -30,17 +30,20 @@ head(df_selectionx)
 
 df_extra <- df_extra[df_extra$Status == 'Contribution', c(3, 5, 7, 9)]
 names(df_extra) <- c('country', 'donor', 'appeal', 'amount_received')
+head(df_extra)
 
 df_selection <- rbind(df_selectionx, df_extra)
+head(df_selection)
 
 names(df_filter) <- c('appeal', 'status', 'amount_requested')
 head(df_filter)
 
 ## Merge datasets to restrict to appeals of interest
 df <- merge(df_filter, df_selection)
-head(df)
+tail(df)
 
-#df$amount_requested <- as.numeric(df$amount_requested)
+df$amount_requested <- as.numeric(levels(df$amount_requested))[df$amount_requested]
+df$amount_received <- as.numeric(levels(df$amount_received))[df$amount_received]
 
 list_status <- factor(c('L3', 'L2', 'Priority', 'Other'))
 list_country <- sort(unique(df$country))
@@ -48,15 +51,12 @@ list_donor <- sort(unique(df$donor))
 list_appeal <- sort(unique(df$appeal))
 
 df_donor <- 
-  df %>%
-  #filter(status == 'L3' | 
-  #           status == 'priority') %>%
-  #group_by(country, appeal, status, donor) %>%
-  group_by(appeal, status, donor) %>%
-  summarise(total_requested = min(amount_requested, na.rm = T),
-            total_received = sum(amount_received, na.rm = T),
-            prop_funded = round(sum(amount_received, na.rm = T)/min(amount_requested, na.rm = T)*100, digits = 1)) %>%
-  arrange(status, appeal, desc(total_received))
+    df %>%
+    group_by(appeal, status, donor) %>%
+    summarise(total_requested = min(amount_requested, na.rm = T),
+              total_received = sum(amount_received, na.rm = T),
+              prop_funded = round(sum(amount_received, na.rm = T)/min(amount_requested, na.rm = T)*100, digits = 1)) %>%
+    arrange(status, appeal, desc(total_received))
 
 df_donor$prop_funded <- ifelse(df_donor$prop_funded == Inf, 100, df_donor$prop_funded)
 df_donor$prop_funded[is.na(df_donor$prop_funded)] <- 0
