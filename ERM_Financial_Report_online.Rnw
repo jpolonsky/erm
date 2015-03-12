@@ -187,7 +187,12 @@ names(total_colx) <- c('Donor', 'Amount received', 'Funded (%)')
 total_colx[3] <- ifelse(total_colx[3]>100, '-', total_colx[3])
 
 df_selected <- rbind(df_selected, total_colx)
+
+levels(df_selected$Donor) <- c(levels(df_selected$Donor), 'TOTAL', '')
 df_selected$Donor[nrow(df_selected)] <- 'TOTAL'
+#df_selected$Donor <- gsub('', '-', df_selected$Donor)
+
+df_selected <- filter(df_selected, !Donor %in% '')
 
 df_selected[, 2] <- as.numeric(df_selected[, 2])
 
