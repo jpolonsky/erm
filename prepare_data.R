@@ -1,6 +1,5 @@
 # Load required packages
 # if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
-library(XLConnect)
 if(!require(ggplot2)) {install.packages("ggplot2"); require(ggplot2)}
 if(!require(dplyr)) {install.packages("dplyr"); require(dplyr)}
 if(!require(reshape2)) {install.packages("reshape2"); require(reshape2)}
@@ -11,14 +10,17 @@ if(!require(RColorBrewer)) {install.packages("RColorBrewer"); require(RColorBrew
 # wb <- loadWorkbook('K:/clData/ERM_Financial_Tool/2012 pledges and contributions.xlsx', create = F)
 filename <- list.files(path = '.', pattern = "xlsx")
 # wb <- loadWorkbook('./2012 pledges and contributions.xlsx', create = F)
-wb <- loadWorkbook(filename, create = F)
-df_raw <- readWorksheet(wb, sheet = "Contribution data", startRow = 2)
-df_extra <- readWorksheet(wb, sheet = "Soft pledges-other ctrbns 2015", startRow = 2)
-df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 2)
-names(df_raw)
+# wb <- loadWorkbook(filename, create = F)
+# df_raw <- readWorksheet(wb, sheet = "Contribution data", startRow = 2)
+# df_extra <- readWorksheet(wb, sheet = "Soft pledges-other ctrbns 2015", startRow = 2)
+# df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 2)
+
+require(xlsx)
+df_raw <- read.xlsx2(filename, sheetName = "Contribution data", startRow = 2)
+df_extra <- read.xlsx2(filename, sheetName = "Soft pledges-other ctrbns 2015", startRow = 2)
+df_filter <- read.xlsx2(filename, sheetName = "SRP 2015 funds requested", startRow = 3)
 
 ## Create lists of variables of interest
-names(df_raw)
 list_var <- c('Recipient.country', 'Donor', 'Type.of.appeal.issued', 'Amount.in.US.')
 
 ## Restrict dataframe to variables of interest
@@ -167,3 +169,4 @@ bar_chart <-
 
 
 # save.image("./2.analysed2015.RData")
+
