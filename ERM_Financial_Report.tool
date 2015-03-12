@@ -7,8 +7,8 @@ cp ~/Dropbox/who/erm_finan_report/'2012 pledges and contributions.xlsx' ~/Deskto
 cd ~/Desktop
 
 curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/ERM_Financial_Report_online.Rnw >> ERM_Financial_Report_online.Rnw
-curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R
-curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/prepare_data.R
+#curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R >> my_functions.R
+#curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/prepare_data.R >> prepare_data.R
 
 curl -o logo_who.pdf 'http://www.pdf-archive.com/2015/02/24/logo-who/logo-who.pdf' 
 curl -o logo_prime.pdf 'http://www.pdf-archive.com/2015/02/24/logo-prime/logo-prime.pdf' 
