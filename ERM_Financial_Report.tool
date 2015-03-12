@@ -7,8 +7,6 @@ cp ~/Dropbox/who/erm_finan_report/'2012 pledges and contributions.xlsx' ~/Deskto
 cd ~/Desktop
 
 curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/ERM_Financial_Report_online.Rnw >> ERM_Financial_Report_online.Rnw
-#curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R >> my_functions.R
-#curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/prepare_data.R >> prepare_data.R
 
 curl -o logo_who.pdf 'http://www.pdf-archive.com/2015/02/24/logo-who/logo-who.pdf' 
 curl -o logo_prime.pdf 'http://www.pdf-archive.com/2015/02/24/logo-prime/logo-prime.pdf' 
@@ -16,7 +14,8 @@ curl -o logo_prime.pdf 'http://www.pdf-archive.com/2015/02/24/logo-prime/logo-pr
 Rscript -e "library(knitr); knit('ERM_Financial_Report_online.Rnw')"
 pdflatex ERM_Financial_Report_online.tex
 
-old_filename="ERM_Financial_Report_online.pdf"
+old_filename="ERM_Financial_Report.pdf"
+# new_filename=${old_filename%.*}$(date "+_%Y%m%d").${old_filename##*.}
 new_filename=${old_filename%.*}$(date "+_%Y%m%d").${old_filename##*.}
 mv "$old_filename" "$new_filename"
 
