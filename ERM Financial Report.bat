@@ -101,7 +101,7 @@ ren "ERM_Financial_Report_offline.pdf" "ERM_Financial_Report_%DATE:~6,4%%DATE:~3
 XCOPY /y ERM_Financial_Report_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%.pdf "%folder%"
 
 rem del ERM_Financial_Report.* "2012 pledges and contributions.xlsx" framed.sty figure\fig_pop-1.pdf
-del ERM_Financial_Report* framed.sty figure\fig_pop-1.pdf
+del ERM_Financial_Report* framed.sty figure\fig_pop-1.pdf *.xlsx
 
 rem explorer K:\clData\ERM_Financial_Tool 
 rem explorer K:\clData\ERM_Financial_Tool\ERM_Financial_Report.pdf
