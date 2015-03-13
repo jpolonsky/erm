@@ -1,5 +1,5 @@
 space <- function(x, ...) { 
-    format(x, ..., big.mark = " ", scientific = FALSE, trim = TRUE)
+  format(x, ..., big.mark = " ", scientific = FALSE, trim = TRUE)
 }
 
 print.xtable <- function(x,
@@ -298,7 +298,7 @@ print.xtable <- function(x,
     BTABULAR <- paste(BTABULAR, lastcol[1], sep = "")
     ## the \hline at the end, if present, is set in full matrix
     ETABULAR <- paste("\\end{", tabular.environment, "}\n", sep = "")
-      
+    
     ## Add scalebox - CR, 7/2/12
     if (!is.null(scalebox)){
       BTABULAR <- paste("\\resizebox*{", scalebox, "\\textwidth}{!}{\n", BTABULAR,
@@ -683,4 +683,3 @@ as.string <- function(x, file = "", append = FALSE) {
 is.string <- function(x) {
   return(class(x) == "string")
 }
-

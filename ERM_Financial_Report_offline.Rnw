@@ -75,14 +75,7 @@ knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 1)})
 
 # load("./2.analysed2015.RData")
-# 
-# if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
-# if(!require(ggplot2)) {install.packages("ggplot2"); require(ggplot2)}
-# if(!require(dplyr)) {install.packages("dplyr"); require(dplyr)}
-# if(!require(reshape2)) {install.packages("reshape2"); require(reshape2)}
-# if(!require(scales)) {install.packages("scales"); require(scales)}
-if(!require(xtable)) {install.packages("xtable"); require(xtable)}
-# 
+ 
 source('./code/my_functions.R')
 source('./code/prepare_data.R')
 @
@@ -174,12 +167,13 @@ total_colx[3] <- ifelse(total_colx[3]>100, '-', total_colx[3])
 
 df_selected <- rbind(df_selected, total_colx)
 
-levels(df_selected$Donor) <- c(levels(df_selected$Donor), 'TOTAL', 'None')
+# levels(df_selected$Donor) <- c(levels(df_selected$Donor), 'TOTAL', 'None')
 df_selected$Donor[nrow(df_selected)] <- 'TOTAL'
 
 df_selected[, 2] <- as.numeric(df_selected[, 2])
 
-df_selected$Donor[df_selected$Donor %in% ''] <- 'None'
+# df_selected$Donor[df_selected$Donor %in% ''] <- 'None'
+df_selected$Donor[is.na(df_selected$Donor)] <- 'None'
 
 if(nrow(df_selected)>1) {rws <- seq(1, nrow(df_selected) - 1, by = 2)}
 

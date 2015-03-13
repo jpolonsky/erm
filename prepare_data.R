@@ -1,24 +1,25 @@
 # Load required packages
-# if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
-if(!require(xlsx)) {install.packages("xlsx"); require(xlsx)}
+if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
+# if(!require(xlsx)) {install.packages("xlsx"); require(xlsx)}
 if(!require(ggplot2)) {install.packages("ggplot2"); require(ggplot2)}
 if(!require(dplyr)) {install.packages("dplyr"); require(dplyr)}
 if(!require(reshape2)) {install.packages("reshape2"); require(reshape2)}
 if(!require(scales)) {install.packages("scales"); require(scales)}
 if(!require(RColorBrewer)) {install.packages("RColorBrewer"); require(RColorBrewer)}
-#if(!require(extrafont)) {install.packages("extrafont"); require(extrafont)}
+if(!require(xtable)) {install.packages("xtable"); require(xtable)}
+# if(!require(extrafont)) {install.packages("extrafont"); require(extrafont)}
 
 # wb <- loadWorkbook('K:/clData/ERM_Financial_Tool/2012 pledges and contributions.xlsx', create = F)
 filename <- list.files(path = '.', pattern = "xlsx")
 # wb <- loadWorkbook('./2012 pledges and contributions.xlsx', create = F)
-# wb <- loadWorkbook(filename, create = F)
-# df_raw <- readWorksheet(wb, sheet = "Contribution data", startRow = 2)
-# df_extra <- readWorksheet(wb, sheet = "Soft pledges-other ctrbns 2015", startRow = 2)
-# df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 2)
+wb <- loadWorkbook(filename, create = F)
+df_raw <- readWorksheet(wb, sheet = "Contribution data", startRow = 2)
+df_extra <- readWorksheet(wb, sheet = "Soft pledges-other ctrbns 2015", startRow = 2)
+df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 2)
 
-df_raw <- read.xlsx2(filename, sheetName = "Contribution data", startRow = 2)
-df_extra <- read.xlsx2(filename, sheetName = "Soft pledges-other ctrbns 2015", startRow = 2)
-df_filter <- read.xlsx2(filename, sheetName = "SRP 2015 funds requested", startRow = 3)
+# df_raw <- read.xlsx2(filename, sheetName = "Contribution data", startRow = 2)
+# df_extra <- read.xlsx2(filename, sheetName = "Soft pledges-other ctrbns 2015", startRow = 2)
+# df_filter <- read.xlsx2(filename, sheetName = "SRP 2015 funds requested", startRow = 3)
 
 ## Create lists of variables of interest
 list_var <- c('Recipient.country', 'Donor', 'Type.of.appeal.issued', 'Amount.in.US.')
@@ -42,8 +43,8 @@ head(df_filter)
 df <- merge(df_filter, df_selection)
 tail(df)
 
-df$amount_requested <- as.numeric(levels(df$amount_requested))[df$amount_requested]
-df$amount_received <- as.numeric(levels(df$amount_received))[df$amount_received]
+# df$amount_requested <- as.numeric(levels(df$amount_requested))[df$amount_requested]
+# df$amount_received <- as.numeric(levels(df$amount_received))[df$amount_received]
 
 list_status <- factor(c('L3', 'L2', 'Priority', 'Other'))
 list_country <- sort(unique(df$country))

@@ -56,7 +56,7 @@ del %tmp%\tmp.vbs
 SET PATH=%PATH%;"LaTeX\miktex\bin";"R-Portable\App\R-Portable\bin"
 
 rem Rscript -e "library(knitr); knit('ERM_Financial_Report_offline.Rnw')"
-Rscript -e "if(!require(knitr)) {install.packages("knitr"); require(knitr)}; knit('ERM_Financial_Report_online.Rnw')"
+Rscript -e "if(!require(knitr)) {install.packages("knitr"); require(knitr)}; knit('ERM_Financial_Report_offline.Rnw')"
 pdflatex ERM_Financial_Report_offline.tex
 
 :: fchooser.bat

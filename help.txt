@@ -1,12 +1,12 @@
 ERM FINANCIAL TOOL v1.01 INSTALLATION INSTRUCTIONS:
 
-1. Be sure to install to the 'D' drive - installing to the 'C' drive will not work on most computers as we do not have admin rights by default
+1. Be sure to install to the 'D' drive - installing to the 'C' drive will not work on most WHO computers as we do not have admin rights by default
 
-2. Create a desktop shortcut to the location where the data updates will be placed (which is also where the report will be created by the programme). The location is 'K:\\clData\ERM_Financial_Tool'
+2. After installation, run the programme either by double-clicking the desktop shortcut (if one was created), or by going Start > All Programs > ERM Financial Tool > ERM Financial Tool
 
-3. If it is not already there, put a copy of the latest datafile ("2012 pledges and contributions.xlsx") at this folder location ("K:\\clData\ERM_Financial_Tool")
+3. You will be asked to locate the data file - this window will open in K:\clData\ERM_Financial_Tool\ by default, but you can navigate to another location (N.B this will not work if the drive where the data file is located is protected)
 
-4. After installation, run the programme either by double-clicking the desktop shortcut (if one was created), or by going Start > All Programs > ERM Financial Tool > ERM Financial Tool
+4. When the report has been produced, you will be asked where you would like to save the file. The default location is K:\clData\ERM_Financial_Tool, but you can navigate to another directory if yiou prefer. The report and it's containing folder will both open upon selection.
 
 please send comments, suggestions, and bug reports to:
 
