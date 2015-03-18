@@ -15,7 +15,7 @@ filename <- list.files(path = '.', pattern = "xlsx")
 wb <- loadWorkbook(filename, create = F)
 df_raw <- readWorksheet(wb, sheet = "Contribution data", startRow = 2)
 df_extra <- readWorksheet(wb, sheet = "Soft pledges-other ctrbns 2015", startRow = 2)
-df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 2)
+df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 3)
 
 # df_raw <- read.xlsx2(filename, sheetName = "Contribution data", startRow = 2)
 # df_extra <- read.xlsx2(filename, sheetName = "Soft pledges-other ctrbns 2015", startRow = 2)
