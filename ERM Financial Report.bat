@@ -41,6 +41,22 @@ REM goto :EOF
 rem XCOPY /y "K:\clData\ERM_Financial_Tool\2012 pledges and contributions.xlsx" .
 XCOPY /y "%filename%" .
 
+rem set /P year=Enter year of interest:
+rem type nul >%year%.txt
+
+rem call :inputbox "Please enter year of interest:" "Reporting year"
+
+:InputBox
+set input=
+REM set heading=%~2
+REM set message=%~1
+set heading=Reporting year
+set message=Please enter year of interest:
+echo wscript.echo inputbox(WScript.Arguments(0),WScript.Arguments(1)) >"%temp%\input.vbs"
+for /f "tokens=* delims=" %%a in ('cscript //nologo "%temp%\input.vbs" "%message%" "%heading%"') do set input=%%a
+
+type nul >%Input%.txt
+
 XCOPY /y code\ERM_Financial_Report_offline.Rnw .
 
 echo set WshShell = WScript.CreateObject("WScript.Shell") > %tmp%\tmp.vbs
@@ -101,7 +117,7 @@ ren "ERM_Financial_Report_offline.pdf" "ERM_Financial_Report_%DATE:~6,4%%DATE:~3
 XCOPY /y ERM_Financial_Report_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%.pdf "%folder%"
 
 rem del ERM_Financial_Report.* "2012 pledges and contributions.xlsx" framed.sty figure\fig_pop-1.pdf
-del ERM_Financial_Report* framed.sty figure\fig_pop-1.pdf *.xlsx
+del ERM_Financial_Report* framed.sty figure\fig_pop-1.pdf *.xlsx *.txt
 
 rem explorer K:\clData\ERM_Financial_Tool 
 rem explorer K:\clData\ERM_Financial_Tool\ERM_Financial_Report.pdf

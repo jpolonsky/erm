@@ -11,11 +11,19 @@ if(!require(xtable)) {install.packages("xtable"); require(xtable)}
 
 # wb <- loadWorkbook('K:/clData/ERM_Financial_Tool/2012 pledges and contributions.xlsx', create = F)
 filename <- list.files(path = '.', pattern = "xlsx")
+year <- list.files(path = '.', pattern = "txt")
+year <- sub('.txt', '', year)
+
 # wb <- loadWorkbook('./2012 pledges and contributions.xlsx', create = F)
 wb <- loadWorkbook(filename, create = F)
-df_raw <- readWorksheet(wb, sheet = "Contribution data", startRow = 2)
-df_extra <- readWorksheet(wb, sheet = "Soft pledges-other ctrbns 2015", startRow = 2)
-df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 3)
+# df_raw <- readWorksheet(wb, sheet = "Contribution data", startRow = 2)
+# df_extra <- readWorksheet(wb, sheet = "Soft pledges-other ctrbns 2015", startRow = 2)
+# df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 3)
+
+listSheets <- getSheets(wb)
+df_raw <- readWorksheet(wb, sheet = listSheets[grep("Contribution", listSheets)], startRow = 2)
+df_extra <- readWorksheet(wb, sheet = listSheets[grep(paste0("ctrbns ", year), listSheets)], startRow = 2)
+df_filter <- readWorksheet(wb, sheet = listSheets[grep(paste0("SRP ", year), listSheets)], startRow = 3)
 
 # df_raw <- read.xlsx2(filename, sheetName = "Contribution data", startRow = 2)
 # df_extra <- read.xlsx2(filename, sheetName = "Soft pledges-other ctrbns 2015", startRow = 2)
