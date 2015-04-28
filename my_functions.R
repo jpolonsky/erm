@@ -1,6 +1,4 @@
-space <- function(x, ...) { 
-  format(x, ..., big.mark = " ", scientific = FALSE, trim = TRUE)
-}
+space <- function(x, ...) format(x, ..., big.mark = " ", scientific = F)
 
 print.xtable <- function(x,
                          type = getOption("xtable.type", "latex"),
