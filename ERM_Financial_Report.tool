@@ -6,12 +6,13 @@ export PATH=$PATH:/usr/texbin
 cp ~/Dropbox/who/erm_finan_report/'2012 pledges and contributions.xlsx' ~/Desktop
 cd ~/Desktop
 
-curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/ERM_Financial_Report_online.Rnw >> ERM_Financial_Report_online.Rnw
+curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/ERM_Financial_Report_online_mac.Rnw >> ERM_Financial_Report_online.Rnw
 
 curl -o logo_who.pdf 'http://www.pdf-archive.com/2015/02/24/logo-who/logo-who.pdf' 
 curl -o logo_prime.pdf 'http://www.pdf-archive.com/2015/02/24/logo-prime/logo-prime.pdf' 
 
-Rscript -e "library(knitr); knit('ERM_Financial_Report_online.Rnw')"
+#Rscript -e "library(knitr); knit('ERM_Financial_Report_online.Rnw')"
+Rscript -e "knitr::knit('ERM_Financial_Report_online.Rnw')"
 pdflatex ERM_Financial_Report_online.tex
 
 old_filename="ERM_Financial_Report_online.pdf"
