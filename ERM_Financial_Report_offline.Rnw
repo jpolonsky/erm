@@ -80,38 +80,40 @@ source('./code/my_functions.R')
 source('./code/prepare_data.R')
 @
 
-\begin{titlepage}
-\begin{center}
+\input{./titlepage.tex}
 
-% Organisation logos
-\begin{minipage}{0.45\textwidth}
-\begin{flushleft}\large
-\includegraphics[width=0.95\textwidth]{./figure/logo_who}~\\[1cm]
-\end{flushleft}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-\begin{flushright}\large
-\includegraphics[width=0.95\textwidth]{./figure/logo_prime}~\\[1cm]
-\end{flushright}
-\end{minipage}\\[4.0cm]
-
-% Title
-\HRule \\[0.3cm]
-%\textsc{\huge \bfseries Level 3 \& Level 2 emergencies,}\\[0.3cm]
-%\textsc{\huge \bfseries and ERM priority countries:}\\[0.3cm]
-%{\LARGE \bfseries Contributions and Firm Pledges}\\[0.2cm]
-\textsc{\huge Grade 3 and Grade 2 emergencies,}\\[0.4cm]
-\textsc{\huge and ERM priority countries:}\\[0.9cm]
-{\LARGE Contributions and Firm Pledges}\\[0.2cm]
-\HRule\\[1.5cm]
-\vfill
-
-\cleanlookdateon
-\textsc{\LARGE Weekly update: \today}%\\[0.2cm]
-
-\end{center}
-\end{titlepage}
+% \begin{titlepage}
+% \begin{center}
+% 
+% % Organisation logos
+% \begin{minipage}{0.45\textwidth}
+% \begin{flushleft}\large
+% \includegraphics[width=0.95\textwidth]{./figure/logo_who}~\\[1cm]
+% \end{flushleft}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.45\textwidth}
+% \begin{flushright}\large
+% \includegraphics[width=0.95\textwidth]{./figure/logo_prime}~\\[1cm]
+% \end{flushright}
+% \end{minipage}\\[4.0cm]
+% 
+% % Title
+% \HRule \\[0.3cm]
+% %\textsc{\huge \bfseries Level 3 \& Level 2 emergencies,}\\[0.3cm]
+% %\textsc{\huge \bfseries and ERM priority countries:}\\[0.3cm]
+% %{\LARGE \bfseries Contributions and Firm Pledges}\\[0.2cm]
+% \textsc{\huge Grade 3 and Grade 2 emergencies,}\\[0.4cm]
+% \textsc{\huge and ERM priority countries:}\\[0.9cm]
+% {\LARGE Contributions and Firm Pledges}\\[0.2cm]
+% \HRule\\[1.5cm]
+% \vfill
+% 
+% \cleanlookdateon
+% \textsc{\LARGE Weekly update: \today}%\\[0.2cm]
+% 
+% \end{center}
+% \end{titlepage}
 
 \section{Overview}
 <<tab_overview>>=
