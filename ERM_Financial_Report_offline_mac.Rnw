@@ -71,26 +71,6 @@
 
 \begin{document}
 
-<<external-code, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE>>=
-#read_chunk('./get_code.R')
-
-# source_github <- function(u) {
-#     # load package
-#     require(RCurl)
-#     
-#     # read script lines from website and evaluate
-#     script <- getURL(u, ssl.verifypeer = FALSE)
-#     eval(parse(text = script), envir = .GlobalEnv)
-# }  
-# 
-# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
-# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/prepare_data.R")
-
-library(devtools)
-source_url("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
-source_url("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/prepare_data.R")
-@
-
 <<setup, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=
 opts_chunk$set(cache=FALSE,message=FALSE, echo=FALSE, warning=FALSE, results='asis')
 
@@ -98,40 +78,45 @@ knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 1)})
 
 # load("./2.analysed2015.RData")
+ 
+source('./code/my_functions.R')
+source('./code/prepare_data_mac.R')
 @
 
-\begin{titlepage}
-\begin{center}
+\input{./titlepage.tex}
 
-% Organisation logos
-\begin{minipage}{0.45\textwidth}
-\begin{flushleft}\large
-\includegraphics[width=0.95\textwidth]{./logo_who}~\\[1cm]
-\end{flushleft}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-\begin{flushright}\large
-\includegraphics[width=0.95\textwidth]{./logo_prime}~\\[1cm]
-\end{flushright}
-\end{minipage}\\[4.0cm]
-
-% Title
-\HRule \\[0.3cm]
-%\textsc{\huge \bfseries Level 3 \& Level 2 emergencies,}\\[0.3cm]
-%\textsc{\huge \bfseries and ERM priority countries:}\\[0.3cm]
-%{\LARGE \bfseries Contributions and Firm Pledges}\\[0.2cm]
-\textsc{\huge Grade 3 and Grade 2 emergencies,}\\[0.4cm]
-\textsc{\huge and ERM priority countries:}\\[0.9cm]
-{\LARGE Contributions and Firm Pledges}\\[0.2cm]
-\HRule\\[1.5cm]
-\vfill
-
-\cleanlookdateon
-\textsc{\LARGE Weekly update: \today}%\\[0.2cm]
-
-\end{center}
-\end{titlepage}
+% \begin{titlepage}
+% \begin{center}
+% 
+% % Organisation logos
+% \begin{minipage}{0.45\textwidth}
+% \begin{flushleft}\large
+% \includegraphics[width=0.95\textwidth]{./figure/logo_who}~\\[1cm]
+% \end{flushleft}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.45\textwidth}
+% \begin{flushright}\large
+% \includegraphics[width=0.95\textwidth]{./figure/logo_prime}~\\[1cm]
+% \end{flushright}
+% \end{minipage}\\[4.0cm]
+% 
+% % Title
+% \HRule \\[0.3cm]
+% %\textsc{\huge \bfseries Level 3 \& Level 2 emergencies,}\\[0.3cm]
+% %\textsc{\huge \bfseries and ERM priority countries:}\\[0.3cm]
+% %{\LARGE \bfseries Contributions and Firm Pledges}\\[0.2cm]
+% \textsc{\huge Grade 3 and Grade 2 emergencies,}\\[0.4cm]
+% \textsc{\huge and ERM priority countries:}\\[0.9cm]
+% {\LARGE Contributions and Firm Pledges}\\[0.2cm]
+% \HRule\\[1.5cm]
+% \vfill
+% 
+% \cleanlookdateon
+% \textsc{\LARGE Weekly update: \today}%\\[0.2cm]
+% 
+% \end{center}
+% \end{titlepage}
 
 \section{Overview}
 <<tab_overview>>=
