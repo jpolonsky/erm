@@ -8,6 +8,8 @@ cd ~/Desktop
 
 curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/ERM_Financial_Report.Rnw >> ERM_Financial_Report.Rnw
 
+curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/titlepage.tex >> titlepage.tex
+
 curl -o logo_who.pdf 'http://www.pdf-archive.com/2015/02/24/logo-who/logo-who.pdf' 
 curl -o logo_prime.pdf 'http://www.pdf-archive.com/2015/02/24/logo-prime/logo-prime.pdf' 
 
@@ -20,7 +22,7 @@ old_filename="ERM_Financial_Report.pdf"
 new_filename=ERM_Financial_Report$(date "+_%Y%m%d").pdf
 mv "$old_filename" "$new_filename"
 
-rm ERM_Financial_Report.* ./figure/*.pdf logo* '2012 pledges and contributions.xlsx'
+rm ERM_Financial_Report.* ./figure/*.pdf logo* '2012 pledges and contributions.xlsx' 'titlepage.tex'
 rmdir figure
 # mv ERM_Financial_Report.pdf ~/Desktop
 # mv ERM_Financial_Report.pdf 'ERM ERM_Financial_Report report.pdf'
