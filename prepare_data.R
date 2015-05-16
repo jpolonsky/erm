@@ -10,22 +10,19 @@ if(!require(xtable)) {install.packages("xtable"); require(xtable)}
 library(gWidgets)
 options("guiToolkit" = "tcltk")
 
-filename <- list.files(path = '.', pattern = "xlsx")
-# year <- list.files(path = '.', pattern = "txt")
-# year <- sub('.txt', '', year)
-# year <- '2015'
-w <- gbasicdialog(title = "Select year \nof interest", do.buttons=TRUE, handler = function(h, ...) 
-  year <<- svalue(selection))
-selection <- gcombobox(c("2014", "2015"), editable = TRUE, expand = TRUE, container = w)
-visible(w, set = TRUE) ## show dialog
+fileChoose <- function(action = "list.files", text = "Select a file...", type = "open", ...) {
+  gfile(text = text, type = type, ..., action = action, handler = function(h, ...) {
+    do.call(h$action, list(h$file))
+  })
+}
 
-# wb <- loadWorkbook(filename, create = F)
-# listSheets <- getSheets(wb)
+filename <- fileChoose()
 listSheets <- excel_sheets(filename)
 
-# df_raw <- readWorksheet(wb, sheet = listSheets[grep("Contribution", listSheets)], startRow = 2)
-# df_extra <- readWorksheet(wb, sheet = listSheets[grep(paste0("ctrbns ", year), listSheets)], startRow = 2)
-# df_filter <- readWorksheet(wb, sheet = listSheets[grep(paste0("SRP ", year), listSheets)], startRow = 3)
+w <- gbasicdialog(title = "Select year of interest", do.buttons = T, handler = function(h, ...) 
+  year <<- svalue(selection))
+selection <- gcombobox(c("2014", "2015"), editable = T, expand = T, container = w)
+visible(w, set = T) ## show dialog
 
 df_raw <- read_excel(filename, sheet = listSheets[grep("Contribution", listSheets)], skip = 1)
 df_extra <- read_excel(filename, sheet = listSheets[grep(paste0("ctrbns ", year), listSheets)], skip = 1)
