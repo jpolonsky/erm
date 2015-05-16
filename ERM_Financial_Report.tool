@@ -6,27 +6,27 @@ export PATH=$PATH:/usr/texbin
 cp ~/Dropbox/who/erm_finan_report/'2012 pledges and contributions.xlsx' ~/Desktop
 cd ~/Desktop
 
-curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/ERM_Financial_Report_online_mac.Rnw >> ERM_Financial_Report_online.Rnw
+curl https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/ERM_Financial_Report.Rnw >> ERM_Financial_Report.Rnw
 
 curl -o logo_who.pdf 'http://www.pdf-archive.com/2015/02/24/logo-who/logo-who.pdf' 
 curl -o logo_prime.pdf 'http://www.pdf-archive.com/2015/02/24/logo-prime/logo-prime.pdf' 
 
-Rscript -e "library(knitr); knit('ERM_Financial_Report_online.Rnw')"
-#Rscript -e "knitr::knit('ERM_Financial_Report_online.Rnw')" ## Does not work!!!
-pdflatex ERM_Financial_Report_online.tex
+Rscript -e "library(knitr); knit('ERM_Financial_Report.Rnw')"
+#Rscript -e "knitr::knit('ERM_Financial_Report.Rnw')" ## Does not work!!!
+pdflatex ERM_Financial_Report.tex
 
-old_filename="ERM_Financial_Report_online.pdf"
+old_filename="ERM_Financial_Report.pdf"
 # new_filename=${old_filename%.*}$(date "+_%Y%m%d").${old_filename##*.}
 new_filename=ERM_Financial_Report$(date "+_%Y%m%d").pdf
 mv "$old_filename" "$new_filename"
 
-rm ERM_Financial_Report_online.* ./figure/*.pdf logo* '2012 pledges and contributions.xlsx'
+rm ERM_Financial_Report.* ./figure/*.pdf logo* '2012 pledges and contributions.xlsx'
 rmdir figure
-# mv ERM_Financial_Report_online.pdf ~/Desktop
-# mv ERM_Financial_Report_online.pdf 'ERM ERM_Financial_Report_online report.pdf'
+# mv ERM_Financial_Report.pdf ~/Desktop
+# mv ERM_Financial_Report.pdf 'ERM ERM_Financial_Report report.pdf'
 
 
-mv "$new_filename" ~/Dropbox/who/erm_finan_report/
+# mv "$new_filename" ~/Dropbox/who/erm_finan_report/
 open ~/Dropbox/who/erm_finan_report/"$new_filename" ~/Dropbox/who/erm_finan_report
 
 # uuencode "$new_filename" "$new_filename" | mail -s "Updated ERM financial report" jonny.polonsky@gmail.com

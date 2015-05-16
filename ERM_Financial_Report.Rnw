@@ -71,17 +71,18 @@
 
 \begin{document}
 
-<<setup, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=
+<<setup, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='hide'>>=
 opts_chunk$set(cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis')
 
 knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 1)})
 
 library(gWidgets)
-options("guiToolkit" = "tcltk")
-w <- gbasicdialog(title = "Are you online", do.buttons = T, handler = function(h, ...) 
+# options("guiToolkit" = "tcltk")
+options("guiToolkit" = "RGtk2")
+w <- gbasicdialog(title = "Connection status", do.buttons = T, handler = function(h, ...) 
   online <<- svalue(selection))
-selection <- gcombobox(c("Online", "Offline"), editable = F, expand = T, container = w)
+selection <- gcombobox(c("Offline", "Online"), editable = F, expand = T, container = w)
 visible(w, set = T) ## show dialog
 
 if(online %in% 'Online'){
@@ -95,39 +96,6 @@ if(online %in% 'Online'){
 
 \input{./titlepage.tex}
 
-% \begin{titlepage}
-% \begin{center}
-% 
-% % Organisation logos
-% \begin{minipage}{0.45\textwidth}
-% \begin{flushleft}\large
-% \includegraphics[width=0.95\textwidth]{./figure/logo_who}~\\[1cm]
-% \end{flushleft}
-% \end{minipage}
-% \hfill
-% \begin{minipage}{0.45\textwidth}
-% \begin{flushright}\large
-% \includegraphics[width=0.95\textwidth]{./figure/logo_prime}~\\[1cm]
-% \end{flushright}
-% \end{minipage}\\[4.0cm]
-% 
-% % Title
-% \HRule \\[0.3cm]
-% %\textsc{\huge \bfseries Level 3 \& Level 2 emergencies,}\\[0.3cm]
-% %\textsc{\huge \bfseries and ERM priority countries:}\\[0.3cm]
-% %{\LARGE \bfseries Contributions and Firm Pledges}\\[0.2cm]
-% \textsc{\huge Grade 3 and Grade 2 emergencies,}\\[0.4cm]
-% \textsc{\huge and ERM priority countries:}\\[0.9cm]
-% {\LARGE Contributions and Firm Pledges}\\[0.2cm]
-% \HRule\\[1.5cm]
-% \vfill
-% 
-% \cleanlookdateon
-% \textsc{\LARGE Weekly update: \today}%\\[0.2cm]
-% 
-% \end{center}
-% \end{titlepage}
-
 \section{Overview}
 <<tab_overview>>=
 df_total$status <- factor(df_total$status, levels = c('L3', 'L2', 'Priority', 'Other'))
@@ -136,15 +104,13 @@ names(df_total) <- c('Appeal', 'Crisis type', 'Amount requested', 'Amount receiv
 
 if(nrow(df_total)>1) {rws <- seq(1, nrow(df_total) - 1, by = 2)}
 
-#col <- rep("\\rowcolor[gray]{0.95}", length(rws))
-#col <- rep("\\rowcolor{blue!5}", length(rws))
 col <- rep("\\rowcolor{whoblue!15}", length(rws))
 
 z <- xtable(space(df_total), caption = 'Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', digits = 0, label = "tab_overview")
     
 align(z) <- 'lllrrr'
 
-print(z, type = 'latex', booktabs = T, caption.placement = "top", add.to.row = list(pos = as.list(rws), command = col), include.rownames=FALSE, scalebox=.95)
+print(z, type = 'latex', booktabs = T, caption.placement = "top", add.to.row = list(pos = as.list(rws), command = col), include.rownames=FALSE, scalebox=1)
 @
 
 <<fig_pop, fig.cap='Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', fig.pos='!htbp', fig.height=4.5>>=
@@ -200,7 +166,7 @@ comment          <- list()
 comment$pos      <- list()
 comment$pos[[1]] <- c(nrow(z))
 
-if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] == 0) {
+if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] %in% 0) {
     comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{\\textcolor{red}{N.B. No funding requirements established against this appeal.}}}\n"))
 } else {
     comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{Amount requested: US\\$ ", space(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4]),"}}\n"))
@@ -212,7 +178,7 @@ align(z) <- 'llrr' # to be used with: tabular.environment="tabularx"
 
 print(z, type = 'latex', floating='F', table.placement="!htp", booktabs = T, caption.placement = "top", include.rownames=FALSE, latex.environments="center", add.to.row = list(pos = as.list(rws), command = col))
 
-if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] == 0) {
+if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] %in% 0) {
     cat(paste0("\n\\emph{\\footnotesize{\\textcolor{red}{N.B. No funding requirements established against this appeal}}}\n"))
 } else {
     cat(paste0("\n\\emph{\\footnotesize{Amount requested: US\\$ ", space(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4]),"}}\n"))
