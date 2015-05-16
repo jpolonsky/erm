@@ -71,67 +71,62 @@
 
 \begin{document}
 
-<<external-code, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE>>=
-#read_chunk('./get_code.R')
-
-# source_github <- function(u) {
-#     # load package
-#     require(RCurl)
-#     
-#     # read script lines from website and evaluate
-#     script <- getURL(u, ssl.verifypeer = FALSE)
-#     eval(parse(text = script), envir = .GlobalEnv)
-# }  
-# 
-# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
-# source_github("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/prepare_data.R")
-
-library(devtools)
-source_url("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
-source_url("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/prepare_data.R")
-@
-
 <<setup, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=
-opts_chunk$set(cache=FALSE,message=FALSE, echo=FALSE, warning=FALSE, results='asis')
+opts_chunk$set(cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis')
 
 knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 1)})
 
-# load("./2.analysed2015.RData")
+library(gWidgets)
+options("guiToolkit" = "tcltk")
+w <- gbasicdialog(title = "Are you online", do.buttons = T, handler = function(h, ...) 
+  online <<- svalue(selection))
+selection <- gcombobox(c("Online", "Offline"), editable = F, expand = T, container = w)
+visible(w, set = T) ## show dialog
+
+if(online %in% 'Online'){
+  devtools::source_url("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/my_functions.R")
+  devtools::source_url("https://raw.githubusercontent.com/jpolonsky/erm_finan_rep/master/prepare_data.R")
+} else {
+  source('./my_functions.R')
+  source('./prepare_data.R')
+}
 @
 
-\begin{titlepage}
-\begin{center}
+\input{./titlepage.tex}
 
-% Organisation logos
-\begin{minipage}{0.45\textwidth}
-\begin{flushleft}\large
-\includegraphics[width=0.95\textwidth]{./logo_who}~\\[1cm]
-\end{flushleft}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-\begin{flushright}\large
-\includegraphics[width=0.95\textwidth]{./logo_prime}~\\[1cm]
-\end{flushright}
-\end{minipage}\\[4.0cm]
-
-% Title
-\HRule \\[0.3cm]
-%\textsc{\huge \bfseries Level 3 \& Level 2 emergencies,}\\[0.3cm]
-%\textsc{\huge \bfseries and ERM priority countries:}\\[0.3cm]
-%{\LARGE \bfseries Contributions and Firm Pledges}\\[0.2cm]
-\textsc{\huge Grade 3 and Grade 2 emergencies,}\\[0.4cm]
-\textsc{\huge and ERM priority countries:}\\[0.9cm]
-{\LARGE Contributions and Firm Pledges}\\[0.2cm]
-\HRule\\[1.5cm]
-\vfill
-
-\cleanlookdateon
-\textsc{\LARGE Weekly update: \today}%\\[0.2cm]
-
-\end{center}
-\end{titlepage}
+% \begin{titlepage}
+% \begin{center}
+% 
+% % Organisation logos
+% \begin{minipage}{0.45\textwidth}
+% \begin{flushleft}\large
+% \includegraphics[width=0.95\textwidth]{./figure/logo_who}~\\[1cm]
+% \end{flushleft}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.45\textwidth}
+% \begin{flushright}\large
+% \includegraphics[width=0.95\textwidth]{./figure/logo_prime}~\\[1cm]
+% \end{flushright}
+% \end{minipage}\\[4.0cm]
+% 
+% % Title
+% \HRule \\[0.3cm]
+% %\textsc{\huge \bfseries Level 3 \& Level 2 emergencies,}\\[0.3cm]
+% %\textsc{\huge \bfseries and ERM priority countries:}\\[0.3cm]
+% %{\LARGE \bfseries Contributions and Firm Pledges}\\[0.2cm]
+% \textsc{\huge Grade 3 and Grade 2 emergencies,}\\[0.4cm]
+% \textsc{\huge and ERM priority countries:}\\[0.9cm]
+% {\LARGE Contributions and Firm Pledges}\\[0.2cm]
+% \HRule\\[1.5cm]
+% \vfill
+% 
+% \cleanlookdateon
+% \textsc{\LARGE Weekly update: \today}%\\[0.2cm]
+% 
+% \end{center}
+% \end{titlepage}
 
 \section{Overview}
 <<tab_overview>>=
@@ -172,11 +167,11 @@ if(j == 'L3') {
       cat(paste0("\\section{Other appeals}\n")) 
   }
   
-for (i in df_filter[df_filter$status == j, 'appeal']) {  
+for (i in df_filter$appeal[df_filter$status %in% j]) {  
   cat(paste0("\\subsection{", i, "}\n"))
  
   
-df_selected <- df_donor[df_donor$status == j & df_donor$appeal == i, ][, c(3, 5, 6)]
+df_selected <- df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][, c(3, 5, 6)]
 
 names(df_selected) <- c('Donor', 'Amount received', 'Funded (%)')
 
@@ -205,10 +200,10 @@ comment          <- list()
 comment$pos      <- list()
 comment$pos[[1]] <- c(nrow(z))
 
-if(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4] == 0) {
+if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] == 0) {
     comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{\\textcolor{red}{N.B. No funding requirements established against this appeal.}}}\n"))
 } else {
-    comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{Amount requested: US\\$ ", space(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4]),"}}\n"))
+    comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{Amount requested: US\\$ ", space(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4]),"}}\n"))
 }
 
 align(z) <- 'llrr' # to be used with: tabular.environment="tabularx"
@@ -217,7 +212,7 @@ align(z) <- 'llrr' # to be used with: tabular.environment="tabularx"
 
 print(z, type = 'latex', floating='F', table.placement="!htp", booktabs = T, caption.placement = "top", include.rownames=FALSE, latex.environments="center", add.to.row = list(pos = as.list(rws), command = col))
 
-if(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4] == 0) {
+if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] == 0) {
     cat(paste0("\n\\emph{\\footnotesize{\\textcolor{red}{N.B. No funding requirements established against this appeal}}}\n"))
 } else {
     cat(paste0("\n\\emph{\\footnotesize{Amount requested: US\\$ ", space(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4]),"}}\n"))

@@ -1,43 +1,57 @@
 # Load required packages
 if(!require(XLConnect)) {install.packages("XLConnect"); require(XLConnect)}
-# if(!require(xlsx)) {install.packages("xlsx"); require(xlsx)}
+library(readxl)
 if(!require(ggplot2)) {install.packages("ggplot2"); require(ggplot2)}
 if(!require(dplyr)) {install.packages("dplyr"); require(dplyr)}
 if(!require(reshape2)) {install.packages("reshape2"); require(reshape2)}
 if(!require(scales)) {install.packages("scales"); require(scales)}
 if(!require(RColorBrewer)) {install.packages("RColorBrewer"); require(RColorBrewer)}
 if(!require(xtable)) {install.packages("xtable"); require(xtable)}
-# if(!require(extrafont)) {install.packages("extrafont"); require(extrafont)}
+library(gWidgets)
+options("guiToolkit" = "tcltk")
 
-# wb <- loadWorkbook('K:/clData/ERM_Financial_Tool/2012 pledges and contributions.xlsx', create = F)
 filename <- list.files(path = '.', pattern = "xlsx")
-year <- list.files(path = '.', pattern = "txt")
-year <- sub('.txt', '', year)
+# year <- list.files(path = '.', pattern = "txt")
+# year <- sub('.txt', '', year)
+# year <- '2015'
+w <- gbasicdialog(title = "Select year \nof interest", do.buttons=TRUE, handler = function(h, ...) 
+  year <<- svalue(selection))
+selection <- gcombobox(c("2014", "2015"), editable = TRUE, expand = TRUE, container = w)
+visible(w, set = TRUE) ## show dialog
 
-# wb <- loadWorkbook('./2012 pledges and contributions.xlsx', create = F)
-wb <- loadWorkbook(filename, create = F)
-# df_raw <- readWorksheet(wb, sheet = "Contribution data", startRow = 2)
-# df_extra <- readWorksheet(wb, sheet = "Soft pledges-other ctrbns 2015", startRow = 2)
-# df_filter <- readWorksheet(wb, sheet = "SRP 2015 funds requested", startRow = 3)
+# wb <- loadWorkbook(filename, create = F)
+# listSheets <- getSheets(wb)
+listSheets <- excel_sheets(filename)
 
-listSheets <- getSheets(wb)
-df_raw <- readWorksheet(wb, sheet = listSheets[grep("Contribution", listSheets)], startRow = 2)
-df_extra <- readWorksheet(wb, sheet = listSheets[grep(paste0("ctrbns ", year), listSheets)], startRow = 2)
-df_filter <- readWorksheet(wb, sheet = listSheets[grep(paste0("SRP ", year), listSheets)], startRow = 3)
+# df_raw <- readWorksheet(wb, sheet = listSheets[grep("Contribution", listSheets)], startRow = 2)
+# df_extra <- readWorksheet(wb, sheet = listSheets[grep(paste0("ctrbns ", year), listSheets)], startRow = 2)
+# df_filter <- readWorksheet(wb, sheet = listSheets[grep(paste0("SRP ", year), listSheets)], startRow = 3)
 
-# df_raw <- read.xlsx2(filename, sheetName = "Contribution data", startRow = 2)
-# df_extra <- read.xlsx2(filename, sheetName = "Soft pledges-other ctrbns 2015", startRow = 2)
-# df_filter <- read.xlsx2(filename, sheetName = "SRP 2015 funds requested", startRow = 3)
+df_raw <- read_excel(filename, sheet = listSheets[grep("Contribution", listSheets)], skip = 1)
+df_extra <- read_excel(filename, sheet = listSheets[grep(paste0("ctrbns ", year), listSheets)], skip = 1)
+df_filter <- read_excel(filename, sheet = listSheets[grep(paste0("SRP ", year), listSheets)], skip = 2)
+
+excludeEmpty <- function(df) {
+  naCols <- apply(df, 2, function(c) all(is.na(c)))
+  df[, !naCols]
+}
+
+# tmpList <- list(df_raw, df_extra, df_filter)
+# Map(excludeEmpty, tmpList) ## returns list of dataframes with excluded empty columns
+
+df_raw <- excludeEmpty(df_raw)
+df_extra <- excludeEmpty(df_extra)
+df_filter <- excludeEmpty(df_filter)
 
 ## Create lists of variables of interest
-list_var <- c('Recipient.country', 'Donor', 'Type.of.appeal.issued', 'Amount.in.US.')
+list_var <- c('Recipient country', 'Donor', 'Type of appeal issued', 'Amount in US$')
 
 ## Restrict dataframe to variables of interest
 df_selectionx <- df_raw[, list_var]
 names(df_selectionx) <- c('country', 'donor', 'appeal', 'amount_received')
 head(df_selectionx)
 
-df_extra <- df_extra[df_extra$Status == 'Contribution', c(3, 5, 7, 9)]
+df_extra <- df_extra[df_extra$Status %in% 'Contribution', c(3, 5, 7, 9)]
 names(df_extra) <- c('country', 'donor', 'appeal', 'amount_received')
 head(df_extra)
 
@@ -60,12 +74,12 @@ list_donor <- sort(unique(df$donor))
 list_appeal <- sort(unique(df$appeal))
 
 df_donor <- 
-    df %>%
-    group_by(appeal, status, donor) %>%
-    summarise(total_requested = min(amount_requested, na.rm = T),
-              total_received = sum(amount_received, na.rm = T),
-              prop_funded = round(sum(amount_received, na.rm = T)/min(amount_requested, na.rm = T)*100, digits = 1)) %>%
-    arrange(status, appeal, desc(total_received))
+  df %>%
+  group_by(appeal, status, donor) %>%
+  summarise(total_requested = min(amount_requested, na.rm = T),
+            total_received = sum(amount_received, na.rm = T),
+            prop_funded = round(sum(amount_received, na.rm = T)/min(amount_requested, na.rm = T)*100, digits = 1)) %>%
+  arrange(status, appeal, desc(total_received))
 
 df_donor$prop_funded <- ifelse(df_donor$prop_funded == Inf, 100, df_donor$prop_funded)
 df_donor$prop_funded[is.na(df_donor$prop_funded)] <- 0
