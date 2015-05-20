@@ -1,0 +1,5 @@
+1.    Make a folder with the files your DMG will contain.
+2.    Open Disk Utility (It's in /Applications/Utilities/ )
+3.    Go to File > New > New Image from Folder ( Cmd + Shift + N )
+4.    Choose the folder containing you files.
+5.    Make sure "Compressed" is checked, then set where you want to save the created DMG.
