@@ -3,7 +3,6 @@
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{subfig}
-%\usepackage[UKenglish]{babel,isodate,datetime}% http://ctan.org/pkg/babel
 \usepackage[UKenglish]{babel,isodate}% http://ctan.org/pkg/babel
 \usepackage[nottoc]{tocbibind}
 \setcounter{tocdepth}{4}
@@ -43,20 +42,20 @@
 
 \usepackage[utf8]{inputenc}
 %\usepackage[lining,scaled=.95]{ebgaramond} %EB Garamond font 
-%\usepackage[default,scale=0.95]{opensans}
-%\usepackage[T1]{fontenc}
+\usepackage[default,scale=0.95]{opensans}
+\usepackage[T1]{fontenc}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{multirow}
 \usepackage{pdflscape}
 \usepackage{pdfpages} %for inserting PDFs into document
-\usepackage[labelfont=bf]{caption}
+%\usepackage[labelfont=bf]{caption}
 \usepackage{colortbl, xcolor}
 \definecolor{whoblue}{rgb}{0.00, 0.60, 0.80}
     
 \usepackage{soul} %for highlighting text [\hl{TEXT}]
 \usepackage{rotating}
-%\usepackage{caption}
+\usepackage{caption}
 
 \usepackage{float}
 \floatplacement{figure}{H}
