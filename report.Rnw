@@ -49,8 +49,9 @@
 \usepackage{multirow}
 \usepackage{pdflscape}
 \usepackage{pdfpages} %for inserting PDFs into document
-\usepackage[labelfont=bf]{caption}
-\usepackage{colortbl, xcolor}
+%\usepackage[labelfont=bf]{caption}
+%\usepackage{colortbl, xcolor}
+\usepackage{colortbl}
 \definecolor{whoblue}{rgb}{0.00, 0.60, 0.80}
     
 \usepackage{soul} %for highlighting text [\hl{TEXT}]
