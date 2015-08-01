@@ -49,14 +49,14 @@
 \usepackage{multirow}
 \usepackage{pdflscape}
 \usepackage{pdfpages} %for inserting PDFs into document
-%\usepackage[labelfont=bf]{caption}
+\usepackage[labelfont=bf]{caption}
 \usepackage{colortbl, xcolor}
 \definecolor{whoblue}{rgb}{0.00, 0.60, 0.80}
     
 \usepackage{soul} %for highlighting text [\hl{TEXT}]
 \usepackage{rotating}
-\usepackage{caption}
-\captionsetup{labelfont={blue,bf}}
+%\usepackage{caption}
+%\captionsetup{labelfont={blue,bf}}
 
 \usepackage{float}
 \floatplacement{figure}{H}
