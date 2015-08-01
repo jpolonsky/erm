@@ -56,7 +56,7 @@
 \usepackage{soul} %for highlighting text [\hl{TEXT}]
 \usepackage{rotating}
 \usepackage{caption}
-%\captionsetup{labelfont={blue,bf}}
+\captionsetup{labelfont={blue,bf}}
 
 \usepackage{float}
 \floatplacement{figure}{H}
