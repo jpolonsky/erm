@@ -1,15 +1,3 @@
-#    wb <- loadWorkbook(inFile$datapath, create = F)
-    listSheets <- getSheets(wb)
-    df_raw <- readWorksheet(wb, sheet = listSheets[grep("Contribution", listSheets)], startRow = 2, check.names = F)
-    df_extra <- readWorksheet(wb, sheet = listSheets[grep(paste0("ctrbns ", input$year), listSheets)], startRow = 2, check.names = F)
-    df_filter <- readWorksheet(wb, sheet = listSheets[grep(paste0("SRP ", input$year), listSheets)], startRow = 3, check.names = F)
-    
-    #     file.rename(inFile$datapath, paste(inFile$datapath, ".xlsx", sep=""))
-    #     listSheets <- excel_sheets(inFile$datapath)
-    #     df_raw <- read_excel(paste0(inFile$datapath, ".xlsx"), sheet = listSheets[grep("Contribution", listSheets)], skip = 1)
-    #     df_extra <- read_excel(paste0(inFile$datapath, ".xlsx"), sheet = listSheets[grep(paste0("ctrbns ", year), listSheets)], skip = 1)
-    #     df_filter <- read_excel(paste0(inFile$datapath, ".xlsx"), sheet = listSheets[grep("SRP", listSheets)], skip = 2)
-    
     df_raw <- excludeEmpty(df_raw)
     df_extra <- excludeEmpty(df_extra)
     df_filter <- excludeEmpty(df_filter)
