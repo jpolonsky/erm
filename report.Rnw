@@ -41,8 +41,10 @@
 }
 
 \usepackage[utf8]{inputenc}
-\usepackage[lining,scaled=.95]{ebgaramond} %EB Garamond font 
+%\usepackage[lining,scaled=.95]{ebgaramond} %EB Garamond font 
 %\usepackage[default,scale=0.95]{opensans}
+\usepackage{fontspec}
+\setmainfont{Arial}
 \usepackage[T1]{fontenc}
 \usepackage{booktabs}
 \usepackage{tabularx}
