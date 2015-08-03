@@ -1,7 +1,3 @@
-    df_raw <- excludeEmpty(df_raw)
-    df_extra <- excludeEmpty(df_extra)
-    df_filter <- excludeEmpty(df_filter)
-    
     ## Create lists of variables of interest
     list_var <- c('Recipient country', 'Donor', 'Type of appeal issued', 'Amount in US$')
     
