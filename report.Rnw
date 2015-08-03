@@ -64,7 +64,7 @@
 \usepackage{rotating}
 %\usepackage[labelfont=bf]{caption}
 \usepackage{caption}
-%\captionsetup{labelfont=bf}
+\captionsetup{labelfont=bf}
 
 \usepackage{float}
 \floatplacement{figure}{H}
