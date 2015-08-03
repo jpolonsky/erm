@@ -44,8 +44,8 @@
 \usepackage[T1]{fontenc}
 
 %\usepackage{helvet}
-\usepackage{courier}
-%\usepackage[lining,scaled=.95]{ebgaramond} %EB Garamond font 
+%\usepackage{courier}
+\usepackage[lining,scaled=.95]{ebgaramond} %EB Garamond font 
 %\usepackage[default,scale=0.95]{opensans}
 %\usepackage{fontspec}
 %\setmainfont{Arial}
