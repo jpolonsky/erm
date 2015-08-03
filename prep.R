@@ -1,7 +1,3 @@
-inFile <- input$data
-    
-    if (is.null(inFile)) return(NULL)
-    
     wb <- loadWorkbook(inFile$datapath, create = F)
     listSheets <- getSheets(wb)
     df_raw <- readWorksheet(wb, sheet = listSheets[grep("Contribution", listSheets)], startRow = 2, check.names = F)
