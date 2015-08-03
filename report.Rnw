@@ -102,7 +102,7 @@ library(xtable)
 
 % Title
 \HRule \\[0.3cm]
-\textsc{\huge Grade 3 and Grade 2 emergencies,}\\[0.4cm]
+\textbf{\textsc{\huge Grade 3 and Grade 2 emergencies,}}\\[0.4cm]
 \textsc{\huge and ERM priority countries:}\\[0.9cm]
 {\LARGE Contributions and Firm Pledges}\\[0.2cm]
 \HRule\\[1.5cm]
