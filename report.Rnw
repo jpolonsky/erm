@@ -43,11 +43,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
-%\usepackage{helvet}
-\usepackage{courier}
 %\usepackage[lining,scaled=.95]{ebgaramond} %EB Garamond font 
 %\usepackage[default,scale=0.95]{opensans}
-%\usepackage{fontspec}
+%\usepackage{fontspec} % For use with xelatex, not pdflatex!!
 %\setmainfont{Arial}
 
 \usepackage{booktabs}
@@ -62,7 +60,8 @@
     
 \usepackage{soul} %for highlighting text [\hl{TEXT}]
 \usepackage{rotating}
-%\usepackage[labelfont=bf]{caption}
+
+%\usepackage[labelfont=bf]{caption} % package clash for some reason - use below 2 commands instead!!
 \usepackage{caption}
 \captionsetup{labelfont=bf}
 
