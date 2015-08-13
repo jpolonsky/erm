@@ -97,30 +97,27 @@ if (input$update_figure %in% F) {
 }
 ```
 
-```{r, table_loop, results='asis'}
+```{r, code_loop, results='asis'}
 df_donor <- as.data.frame(df_donor)
 list_status <- unique(df_total$`Crisis type`)
+
+count = 0
 
 for (j in list_status) {
   cat("\\clearpage\n\n")
   # cat('\n-----\n') # Doesn't work
   
-  if(j == 'L3') {
-    # cat(paste0("\\section{Grade 3 emergencies}\n"))
+  if (j %in% 'L3') {
     cat("# Grade 3 emergencies\n")
-  } else if (j == 'L2') {
-    # cat(paste0("\\section{Grade 2 emergencies}\n"))
+  } else if (j %in% 'L2') {
     cat("# Grade 2 emergencies\n")
-  } else if (j == 'Priority') {
-    # cat(paste0("\\section{Priority countries}\n"))
+  } else if (j %in% 'Priority') {
     cat("# Priority countries\n")
   } else {
-    # cat(paste0("\\section{Other appeals}\n"))
     cat("# Other appeals\n")
   }
   
   for (i in df_filter$appeal[df_filter$status %in% j]) {
-    # cat(paste0("\\subsection{", i, "}\n"))
     cat(paste0("\n##", i, "\n"))
     
     df_selected <- df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][, c(3, 5, 6)]
@@ -158,15 +155,28 @@ for (j in list_status) {
       comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{Amount requested: US\\$ ", separator(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4]),"}}\n"))
     }
     
-    # xtable::align(z) <- 'llrr' # to be used with: tabular.environment="tabularx"
+    xtable::align(z) <- 'llrr' # to be used with: tabular.environment="tabularx"
     
     print(z, type = 'latex', floating='F', table.placement="!htp", booktabs = T, caption.placement = "top", include.rownames=FALSE, latex.environments="center", add.to.row = list(pos = as.list(rws), command = col), comment = F)
     
+    #     if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] %in% 0) {
+    #       cat("\n\\emph{\\footnotesize{\\textcolor{red}{N.B. No funding requirements established against this appeal}}}\n")
+    #     } else {
+    #       cat(paste0("\n\\emph{\\footnotesize{Amount requested: US\\$ ", separator(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4]),"}}\n"))
+    #     }
+    
     if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] %in% 0) {
-      cat("\n\\emph{\\footnotesize{\\textcolor{red}{N.B. No funding requirements established against this appeal}}}\n")
+      cat("\n\\marginnote{\\textbf{N.B.} No funding requirements established against this appeal}\n")
     } else {
-      cat(paste0("\n\\emph{\\footnotesize{Amount requested: US\\$ ", separator(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4]),"}}\n"))
+      cat(paste0("\n\\marginnote{Amount requested: US\\$ ", separator(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4]),"}\n"))
     }
+    
+    #     p <- ggplot(df_selected, aes(Donor, `Funded (%)`)) + geom_bar(stat = 'identity')
+    #     ggsave(p, file = paste0('./figure/pie_', count, '.pdf'), width = 2, height = 2)
+    # 
+    #     cat(paste0("\n\\begin{marginfigure}[-8\\baselineskip]\n\\includegraphics{figure/pie_", count, ".pdf}\\caption{Pie chart}\\end{marginfigure}\n"))
+    
+    count <- count + 1
     
   }
   
