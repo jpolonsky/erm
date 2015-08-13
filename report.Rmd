@@ -32,6 +32,8 @@ PlotBar <- function (data, xvar = "key", yvar = "value", colscheme = "Blues",  y
                            summarise(yvar_sum = round(sum(colname, na.rm = T))), 
                          list(colname = as.symbol(yvar))))
   
+  tmp[['key']] <- tmp[['key']] %>% factor(levels = tmp[['key']] %>% rev(.))
+  
   ggplot(tmp, aes_string(x = xvar, y = "yvar_sum", fill = xvar)) + 
     geom_bar(stat = "identity", colour = "black") + 
     scale_fill_manual(values = colScheme(colscheme)(nrow(tmp))) + 
