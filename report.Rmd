@@ -35,7 +35,7 @@ PlotBar <- function (data, xvar = "key", yvar = "value", colscheme = "Blues",  y
   ggplot(tmp, aes_string(x = xvar, y = "yvar_sum", fill = xvar)) + 
     geom_bar(stat = "identity", colour = "black") + 
     scale_fill_manual(values = colScheme(colscheme)(nrow(tmp))) + 
-    scale_y_continuous(labels = scales::percent) +
+    # scale_y_continuous(labels = scales::percent) +
     coord_flip() +
     theme_bw() +
     theme(panel.border = element_blank(), 
