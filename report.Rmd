@@ -22,7 +22,7 @@ xtable::align(z) <- 'lllrrr'
 print(z, type = 'latex', booktabs = T, caption.placement = "top", add.to.row = list(pos = as.list(rws), command = col), include.rownames=F, scalebox=1, comment=F)
 ```
 
-```{r, fig_pop, fig.cap='Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', fig.pos='!htbp', fig.height=4, fig.fullwidth = T}
+```{r, fig_pop, fig.cap='Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', fig.pos='!htbp', fig.height=4, fig.fullwidth = F}
 #PlotBar(data = df_total, xvar = 'Appeal', yvar = 'Funded (%)', yaxis = 'Funded (%)', colscheme = input$colours)
 
 PlotBar <- function (data, xvar = "key", yvar = "value", colscheme = "Blues",  yaxis = "", legend = "") {
