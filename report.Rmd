@@ -6,6 +6,9 @@ source('./functions.R')
 ```
 
 # Overview of all ongoing appeals
+
+\begin{fullwidth}
+\makeatletter\setlength\hsize{\@tufte@fullwidth}\setlength\linewidth{\@tufte@fullwidth}\let\caption\@tufte@orig@caption\makeatother
 ```{r, tab_overview}
 df_total <- data_filtered()[[1]]
 df_donor <- data_filtered()[[2]]
@@ -19,8 +22,9 @@ z <- xtable::xtable(separator(df_total), caption = 'Overview of amounts donated/
 
 xtable::align(z) <- 'lllrrr'
 
-print(z, type = 'latex', booktabs = T, caption.placement = "top", add.to.row = list(pos = as.list(rws), command = col), include.rownames=F, scalebox=1, comment=F)
+print(z, type = 'latex', booktabs = T, caption.placement = "top", add.to.row = list(pos = as.list(rws), command = col), include.rownames=F, scalebox=1, comment=F, tabular.environment ='longtable', floating = FALSE)
 ```
+\end{fullwidth}
 
 ```{r, fig_pop, fig.cap='Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', fig.pos='!htbp', fig.height=4, fig.fullwidth = F}
 #PlotBar(data = df_total, xvar = 'Appeal', yvar = 'Funded (%)', yaxis = 'Funded (%)', colscheme = input$colours)
