@@ -33,7 +33,7 @@
 \vspace{0pt}
 \begin{flushright}
 \begin{spacing}{1.0}
-{\LARGE Contributions and Firm Pledges}
+{\fontfamily{phv}\selectfont \LARGE Contributions and Firm Pledges}
 %Contributions and Firm Pledges
 \end{spacing}
 \end{flushright}
