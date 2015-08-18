@@ -44,14 +44,14 @@ PlotBar <- function (data, xvar = "key", yvar = "value", colscheme = "Blues",  y
     geom_bar(stat = "identity", colour = "black") + 
     scale_fill_manual(values = colScheme(colscheme)(nrow(tmp))) + 
     # scale_y_continuous(labels = scales::percent) +
-    coord_flip() +
+    # coord_flip() +
     theme_bw() +
     theme(panel.border = element_blank(), 
           legend.key = element_blank(), 
           # legend.position = "", 
           legend.position = as.character(legend), 
-          # axis.text.x = element_text(size = 3, angle = 45, hjust = 1, colour = "black"), 
-          axis.text.x = element_text(size = 3, angle = 0, hjust = 1, colour = "black"), 
+          axis.text.x = element_text(size = 3, angle = 45, hjust = 1, colour = "black"), 
+          # axis.text.x = element_text(size = 3, angle = 0, hjust = 1, colour = "black"), 
           axis.text.y = element_text(size = 3), 
           axis.title = element_text(size = 4, face = "bold"),
           axis.ticks = element_blank()) + 
