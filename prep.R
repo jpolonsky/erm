@@ -64,4 +64,4 @@
     df_total <- df_total[order(df_total$status, desc(df_total$prop_funded)), ]
     names(df_total) <- c('Appeal', 'Crisis type', 'Amount requested', 'Amount received', 'Funded (%)')
     
-    return(list(df_total, df_donor, df_filter))
+    # return(list(df_total, df_donor, df_filter))
