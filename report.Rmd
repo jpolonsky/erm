@@ -67,7 +67,7 @@ PlotBarHorizontal <- function (data, xvar = "key", yvar = "value", colscheme = "
   tmp[[xvar]] <- factor(tmp[[xvar]], levels = rev(unique(tmp[[xvar]])))
   
   ggplot(tmp, aes_string(x = xvar, y = "yvar_sum", fill = xvar)) + 
-    geom_bar(stat = "identity", colour = "black") + 
+    geom_bar(stat = "identity", colour = "black", size = 0.25) + 
     # scale_fill_manual(values = colScheme(colscheme)(nrow(tmp))) + 
     scale_fill_manual(values = colScheme(colscheme)(nrow(tmp))) +
     # scale_y_continuous(labels = scales::percent) +
