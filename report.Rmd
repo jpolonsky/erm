@@ -109,8 +109,6 @@ if (input$update_figure %in% F) {
                             colscheme = input$colours
           )
     
-  }
-  
 } else {
   
   x <- 
