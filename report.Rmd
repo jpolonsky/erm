@@ -64,11 +64,14 @@ PlotBarHorizontal <- function (data, xvar = "key", yvar = "value", colscheme = "
                            group_by_(xvar) %>% 
                            summarise(yvar_sum = round(sum(colname, na.rm = T))), list(colname = as.symbol(yvar))))
   
+  tmp[[xvar]] <- factor(tmp[[xvar]], levels = rev(unique(tmp[[xvar]])))
+  
   ggplot(tmp, aes_string(x = xvar, y = "yvar_sum", fill = xvar)) + 
     geom_bar(stat = "identity", colour = "black") + 
-    scale_fill_manual(values = colScheme(colscheme)(nrow(tmp))) + 
+    # scale_fill_manual(values = colScheme(colscheme)(nrow(tmp))) + 
+    scale_fill_manual(values = colScheme(colscheme)(nrow(tmp))) +
     scale_y_continuous(labels = scales::percent) +
-    coord_flip() +
+    coord_flip() + 
     theme_bw() +
     theme(
       panel.border = element_blank(), 
@@ -81,7 +84,7 @@ PlotBarHorizontal <- function (data, xvar = "key", yvar = "value", colscheme = "
     ) + 
     labs(title = "", x = "", y = yaxis)
   
-} 
+}
 
 if (input$update_figure %in% F) {
   
