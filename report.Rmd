@@ -200,7 +200,7 @@ for (j in list_status) {
       comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{Amount requested: US\\$ ", separator(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4]),"}}\n"))
     }
     
-    xtable::align(z) <- 'llrr' # to be used with: tabular.environment="tabularx"
+    # xtable::align(z) <- 'llrr' # to be used with: tabular.environment="tabularx"
     
     cat('\\small')
     print(z, type = 'latex', floating='F', table.placement="!htp", booktabs = T, caption.placement = "top", include.rownames=FALSE, latex.environments="center", add.to.row = list(pos = as.list(rws), command = col), comment = F)
