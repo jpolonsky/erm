@@ -21,7 +21,7 @@ col <- rep("\\rowcolor{whoblue!15}", length(rws))
 
 z <- xtable::xtable(separator(df_total), caption = 'Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', digits = 0, label = "tab_overview")
 
-xtable::align(z) <- 'lllrrr'
+# xtable::align(z) <- 'lllrrr'
 
 #print(z, type = 'latex', booktabs = T, caption.placement = "top", add.to.row = list(pos = as.list(rws), command = col), include.rownames=F, scalebox=1, comment=F)
 print(z, type = 'latex', booktabs = T, caption.placement = "top", add.to.row = list(pos = as.list(rws), command = col), include.rownames=F, comment=F, tabular.environment ='longtable', floating = FALSE)
