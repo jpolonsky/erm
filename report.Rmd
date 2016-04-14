@@ -2,7 +2,7 @@
 knitr::opts_chunk$set(cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis')
 knitr::knit_hooks$set(inline = function(x) if (is.numeric(x)) round(x, 1) )
 
-source('./functions.R')
+source('functions.R')
 ```
 
 # Overview of all ongoing appeals
@@ -65,11 +65,25 @@ PlotBarHorizontal(data = data_filtered()[[1]], xvar = 'appeal', yvar = 'Funded (
 
 ```
 
-```{r, code_loop, results='asis'}
+```{r, code_loop, results='asis', fig.margin = TRUE, fig.width=0.25}
 df_donor <- as.data.frame(df_donor)
 list_status <- unique(df_total$`Crisis type`)
 
-count = 0
+# ## prepare pie plots
+# df_pie <- 
+#   df_total %>% 
+#   group_by(appeal) %>% 
+#   select(appeal, status = `Crisis type`, funded = `Funded (%)`) %>% 
+#   mutate(unfunded = 100 - funded) %>% 
+#   gather(key, value, -c(appeal, status)) %>% 
+#   ungroup %>% 
+#   arrange(status, appeal)
+# 
+# list_plots <- 
+#   lapply(df_pie$appeal %>% unique, function(i) PlotPie(df_pie %>% filter(appeal %in% i), colscheme = 'RdYlBu')) %>% 
+#   setNames(df_pie$appeal %>% unique)
+
+# count = 0
 
 for (j in list_status) {
   cat("\\clearpage\n\n")
@@ -145,7 +159,9 @@ for (j in list_status) {
     # 
     #     cat(paste0("\n\\begin{marginfigure}[-8\\baselineskip]\n\\includegraphics{figure/pie_", count, ".pdf}\\caption{Pie chart}\\end{marginfigure}\n"))
     
-    count <- count + 1
+    # print(list_plots[i])
+    # 
+    # count <- count + 1
     
   }
   
