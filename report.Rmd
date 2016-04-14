@@ -29,34 +29,6 @@ print(z, type = 'latex', booktabs = T, caption.placement = "top", add.to.row = l
 \end{fullwidth}
 
 ```{r, fig_pop, fig.cap='Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', fig.pos='!htbp', fig.height=4, fig.fullwidth = T}
-#PlotBar(data = df_total, xvar = 'Appeal', yvar = 'Funded (%)', yaxis = 'Funded (%)', colscheme = input$colours)
-
-PlotBar <- function (data, xvar = "key", yvar = "value", colscheme = "Blues",  yaxis = "", legend = "") {
-  
-  tmp <- eval(substitute(data %>% 
-                           group_by_(xvar) %>% 
-                           summarise(yvar_sum = round(sum(colname, na.rm = T))), 
-                         list(colname = as.symbol(yvar))))
-  
-  # tmp[['Appeal']] <- tmp[['Appeal']] %>% factor(levels = tmp[['Appeal']] %>% rev(.))
-  
-  ggplot(tmp, aes_string(x = xvar, y = "yvar_sum", fill = xvar)) + 
-    geom_bar(stat = "identity", colour = "black") + 
-    scale_fill_manual(values = colScheme(colscheme)(nrow(tmp))) + 
-    # scale_y_continuous(labels = scales::percent) +
-    # coord_flip() +
-    theme_bw() +
-    theme(panel.border = element_blank(), 
-          legend.key = element_blank(), 
-          # legend.position = "", 
-          legend.position = as.character(legend), 
-          axis.text.x = element_text(size = 3, angle = 45, hjust = 1, colour = "black"), 
-          # axis.text.x = element_text(size = 3, angle = 0, hjust = 1, colour = "black"), 
-          axis.text.y = element_text(size = 3), 
-          axis.title = element_text(size = 4, face = "bold"),
-          axis.ticks = element_blank()) + 
-    labs(title = "", x = "", y = yaxis)
-}
 
 PlotBarHorizontal <- function (data, xvar = "key", yvar = "value", colscheme = "Blues",  yaxis = "", legend = "") {
   
@@ -87,59 +59,10 @@ PlotBarHorizontal <- function (data, xvar = "key", yvar = "value", colscheme = "
   
 }
 
-if (input$update_figure %in% F) {
-  
-          # if (input$legend) {
-          #   
-          #   PlotBar(data = data_filtered()[[1]], xvar = 'Appeal', yvar = 'Funded (%)', yaxis = 'Funded (%)', 
-          #           legend = 'right',
-          #           # legend = reactive({ switch(input$legend, F = '', T = 'right') }),
-          #           colscheme = input$colours
-          #   )
-          #   
-          # } else {
-          #   
-          #   PlotBar(data = data_filtered()[[1]], xvar = 'Appeal', yvar = 'Funded (%)', yaxis = 'Funded (%)',
-          #           colscheme = input$colours
-          #   )
-          # 
-          # 
-          # }
-          
-          PlotBarHorizontal(data = data_filtered()[[1]], xvar = 'appeal', yvar = 'Funded (%)', yaxis = 'Funded (%)', 
-                            colscheme = input$colours
-          )
-    
-} else {
-  
-  x <- 
-    data_filtered()[[2]] %>% 
-    gather(key, value, total_received)
-  
-  x[['appeal']] <- x[['appeal']] %>% factor(levels = x[['appeal']] %>% rev(.))
-  
-  ggplot(x, aes(appeal, value, fill = donor)) +
-    geom_bar(stat="identity", 
-             # position = 'fill', 
-             colour = 'black') +
-    scale_fill_manual(values = x[['donor']] %>% unique(.) %>% length(.) %>% colScheme(input$colours)(.)) +
-    scale_y_continuous(labels = scales::percent) +
-    coord_flip() +
-    # facet_wrap(~ region) +
-    theme_bw() +
-    # guides(fill = guide_legend(reverse = T)) +
-    theme(
-      panel.border = element_blank(),
-      plot.title = element_text(size = 12, face = 'bold', color = 'darkblue'),
-      legend.key = element_blank(),
-      axis.text.x = element_text(size = 7, angle = 0, hjust = 1, colour = 'black'),
-      # legend.position = 'bottom',
-      legend.title = element_blank(),
-      axis.ticks = element_blank()
-    ) +
-    labs(title = '', x = '', y = '')
-  
-}
+PlotBarHorizontal(data = data_filtered()[[1]], xvar = 'appeal', yvar = 'Funded (%)', yaxis = 'Funded (%)' 
+                            # colscheme = input$colours
+                            )
+
 ```
 
 ```{r, code_loop, results='asis'}
