@@ -19,7 +19,7 @@ if(nrow(df_total)>1) {rws <- seq(1, nrow(df_total) - 1, by = 2)}
 
 col <- rep("\\rowcolor{whoblue!15}", length(rws))
 
-z <- xtable::xtable(separator(df_total), caption = 'Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', digits = 0, label = "tab_overview")
+z <- xtable::xtable(prettyNum(df_total, ' '), caption = 'Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', digits = 0, label = "tab_overview")
 
 xtable::align(z) <- 'lllrrr'
 
@@ -125,7 +125,7 @@ for (j in list_status) {
     
     col <- rep("\\rowcolor{whoblue!15}", length(rws))
     
-    z <- xtable::xtable(separator(df_selected), caption = paste0('Overview of amounts donated/firmly pledged as a percentage of total requested: ', i), digits = 0, label = paste0('tab_', i))
+    z <- xtable::xtable(prettyNum(df_selected, ' '), caption = paste0('Overview of amounts donated/firmly pledged as a percentage of total requested: ', i), digits = 0, label = paste0('tab_', i))
     
     comment          <- list()
     comment$pos      <- list()
@@ -134,7 +134,7 @@ for (j in list_status) {
     if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] %in% 0) {
       comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{\\textcolor{red}{N.B. No funding requirements established against this appeal.}}}\n"))
     } else {
-      comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{Amount requested: US\\$ ", separator(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4]),"}}\n"))
+      comment$command  <- c(paste0("\\hline \n\\emph{\\footnotesize{Amount requested: US\\$ ", prettyNum(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4], ' '),"}}\n"))
     }
     
     xtable::align(z) <- 'llrr' # to be used with: tabular.environment="tabularx"
@@ -151,7 +151,7 @@ for (j in list_status) {
     if(df_donor[df_donor$status %in% j & df_donor$appeal %in% i, ][1, 4] %in% 0) {
       cat("\n\\marginnote{\\textbf{N.B.} No funding requirements established against this appeal}\n")
     } else {
-      cat(paste0("\n\\marginnote{Amount requested: US\\$ ", separator(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4]),"}\n"))
+      cat(paste0("\n\\marginnote{Amount requested: US\\$ ", prettyNum(df_donor[df_donor$status == j & df_donor$appeal == i, ][1, 4], ' '),"}\n"))
     }
     
     #     p <- ggplot(df_selected, aes(Donor, `Funded (%)`)) + geom_bar(stat = 'identity')
