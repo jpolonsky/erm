@@ -30,7 +30,7 @@ print(z, type = 'latex', booktabs = T, caption.placement = "top", add.to.row = l
 
 ```{r, fig_pop, fig.cap='Overview of amounts donated/firmly pledged as a percentage of total requested, by appeal', fig.pos='!htbp', fig.height=4, fig.fullwidth = T}
 
-PlotBarHorizontal <- function (data, xvar = "key", yvar = "value", colscheme = "Blues",  yaxis = "", legend = "") {
+PlotBar <- function (data, xvar = "key", yvar = "value", colscheme = "Blues",  yaxis = "", legend = "") {
   
   tmp <- eval(substitute(data %>% 
                            group_by_(xvar) %>% 
@@ -59,7 +59,7 @@ PlotBarHorizontal <- function (data, xvar = "key", yvar = "value", colscheme = "
   
 }
 
-PlotBarHorizontal(data = data_filtered()[[1]], xvar = 'appeal', yvar = 'Funded (%)', yaxis = 'Funded (%)' 
+PlotBar(data = data_filtered()[[1]], xvar = 'appeal', yvar = 'Funded (%)', yaxis = 'Funded (%)' 
                             # colscheme = input$colours
                             )
 
