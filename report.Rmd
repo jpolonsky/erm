@@ -89,10 +89,14 @@ for (j in list_status) {
   cat("\\clearpage\n\n")
   # cat('\n-----\n') # Doesn't work
   
-  if (j %in% 'L3') {
+  if (j %in% 'G3') {
     cat("# Grade 3 emergencies\n")
-  } else if (j %in% 'L2') {
+  } else if (j %in% 'G2') {
     cat("# Grade 2 emergencies\n")
+  } else if (j %in% 'WHO appeals') {
+    cat("# WHO appeals\n")
+  } else if (j %in% 'Countries covered by a joint appeal') {
+    cat("# Countries covered by a joint appeal\n")
   } else if (j %in% 'Priority') {
     cat("# Priority countries\n")
   } else {
