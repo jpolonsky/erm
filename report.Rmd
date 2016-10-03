@@ -95,9 +95,9 @@ for (j in list_status) {
     cat("# Grade 2 emergencies\n")
   } else if (j %in% 'WHO appeals') {
     cat("# WHO appeals\n")
-  } else if (j %in% 'Countries covered by a joint appeal') {
+  } else if (j %in% 'Joint appeals') {
     cat("# Countries covered by a joint appeal\n")
-  } else if (j %in% 'Priority') {
+  } else if (j %in% 'Priority countries') {
     cat("# Priority countries\n")
   } else {
     cat("# Other appeals\n")
