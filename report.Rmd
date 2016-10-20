@@ -99,7 +99,7 @@ for (j in list_status) {
     cat("# Countries covered by a joint appeal\n")
   } else if (j %in% 'Priority countries') {
     cat("# Priority countries\n")
-  } else {
+  } else if (j %in% 'Other appeals') {
     cat("# Other appeals\n")
   }
   
