@@ -1,0 +1,456 @@
+---
+title: "Situation epidemiologique de Beni"
+date: "`r format(Sys.Date(), '%d %b %Y')`"
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage[table]{xcolor}
+  - \usepackage{wrapfig}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable}
+  - \usepackage[normalem]{ulem}
+always_allow_html: yes
+---
+
+```{r, cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='hide'}
+knitr::opts_chunk$set(
+  fig.height=6, fig.width=10, 
+  cache=FALSE, message=FALSE, echo=FALSE, warning=FALSE, results='asis'
+)
+```
+
+```{r}
+# options(kableExtra.latex.load_packages = FALSE)
+options(knitr.table.format = "latex")
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(janitor)
+library(tidyverse)
+
+theme_set(
+  theme_classic(base_family = "Palatino") +
+    theme(axis.text.x = element_text(angle = 90, vjust = .5, hjust = 1))
+)
+```
+
+
+```{r}
+df_beni <-
+  df_beni() %>% 
+  janitor::clean_names() %>%
+  mutate_at(vars(matches('date_onset$|date_report|date_isolation_current')), as_date) %>%
+  filter(
+    epi_case_def %in% c(1, 2),
+    sc_res %in% c('BENI', "KALUNGUTA")
+  ) %>%
+  mutate(
+    age = age %>% as.numeric(),
+    age_group =
+      case_when(
+        age %>% between(0, 4) ~ "<5 ans",
+        age %>% between(5, 14) ~ "5-14 ans",
+        age %>% between(15, 24) ~ "15-24 ans",
+        age %>% between(25, 34) ~ "25-34 ans",
+        age %>% between(35, 44) ~ "35-44 ans",
+        age %>% between(45, 59) ~ "45-59 ans",
+        age %>% between(60, 99) ~ "60 ans +"
+      ) %>%
+      fct_relevel("<5 ans", "5-14 ans", "15-24 ans", "25-34 ans", "35-44 ans", "45-59 ans", "60 ans +"),
+    sex =
+      case_when(
+        gender %in% 1 ~ 'M',
+        gender %in% 2 ~ 'F',
+        TRUE ~ NA_character_
+      ),
+    epi_case_def =
+      case_when(
+        epi_case_def %in% 1 ~ 'Confirmé',
+        epi_case_def %in% 2 ~ 'Probable',
+        TRUE ~ NA_character_
+      ) %>%
+      as_factor(),
+    status_as_of_current_date = status_as_of_current_date %>% as_factor(),
+    date = date_onset,
+    aire_de_sante = parish_res,
+    quarter = village_res
+  )
+```
+
+```{r}
+## Set colour palettes
+cols <- 
+  c(
+    "Confirmé" = "#D73027", "Probable" = "orange",
+    "Décédé" = "#D73027", "Vivant" = "#1A9850",
+    "Invalidées" = "orange", "Validées" = "steelblue",
+    "Inconnu" = 'lightgrey'
+  )
+
+## Plotting functions
+### Histogram
+plot_beni_hist <- function(data = df_beni, fill_var){
+  
+  fill_var <- enquo(fill_var)
+  
+  ggplot(data) +
+    aes(date, fill = !!fill_var %>% fct_rev) +
+    geom_histogram(alpha = .8, binwidth = 1) +
+    scale_x_date("Date", date_breaks = '7 day', date_minor_breaks = '1 day', date_labels = '%b %d') +
+    scale_y_continuous(
+      name = 'No. cases',
+      breaks = scales::pretty_breaks()
+    ) +
+    scale_fill_manual(
+      name = 'Legend',
+      values = cols,
+      na.value = "lightgrey"
+    )
+  
+}
+
+### Bar charts
+plot_beni_bar <- function(data = df_beni, fill_var, geo_var = aire_de_sante){
+  
+  fill_var <- enquo(fill_var)
+  geo_var <- enquo(geo_var)
+  geo_name <- quo_name(geo_var)
+  
+  data %>%
+    arrange(!!geo_var) %>%
+    mutate(
+      !!geo_name :=
+        replace_na(!!sym(geo_name), "INCONNU") %>%
+        fct_inorder() %>%
+        fct_relevel("INCONNU", after = Inf)
+    ) %>%
+    ggplot() +
+    aes(!!geo_var %>% fct_rev, fill = !!fill_var %>% fct_rev) +
+    geom_bar(alpha = .8) +
+    coord_flip() +
+    scale_x_discrete(
+      case_when(
+        geo_name %in% c('aire_de_sante', 'as') ~ "Aire de santé",
+        geo_name %in% 'quarter' ~ "Quartier",
+        TRUE ~ NA_character_
+      )
+    ) +
+    scale_y_continuous(
+      name = 'No. cases',
+      breaks = scales::pretty_breaks()
+    ) +
+    scale_fill_manual(
+      name = 'Legend',
+      values = cols,
+      na.value = "lightgrey"
+    ) +
+    theme(
+      axis.text.x = element_text(angle = 0, hjust = .5)
+    )
+  
+}
+
+# Age pyramid
+make_age_pyramid <- function(data, age_grp_var, sex_var, x_axis_breaks, make_age_cat = FALSE) {
+  
+  age_grp_var <- enquo(age_grp_var)
+  sex_var <- enquo(sex_var)
+  
+  age_cat <- function(x, lower = 0, upper, by = 10, sep = "-", above.char = "+") {
+    
+    labs <- 
+      c(paste(seq(lower, upper - by, by = by),
+              seq(lower + by - 1, upper - 1, by = by),
+              sep = sep),
+        paste(upper, above.char, sep = ""))
+    
+    cut(floor(x), breaks = c(seq(lower, upper, by = by), Inf),
+        right = FALSE, labels = labs)
+    
+  }
+  
+  if(make_age_cat %in% TRUE) {
+    
+    data <- 
+      data %>% 
+      mutate(quo_name(age_grp_var) := !!age_grp_var %>% age_cat(by = 5, upper = 70))
+    
+  }
+  
+  y_axis_extent <-
+    data %>% 
+    count(!!age_grp_var, !!sex_var) %>% 
+    top_n(1, wt = n) %>% 
+    pull(n) %>% 
+    plyr::round_any(x_axis_breaks, f = ceiling) %>% 
+    seq(-., ., x_axis_breaks)
+  
+  males <- data %>% filter(str_detect(!!sex_var, regex("^m", ignore_case = TRUE)))
+  females <- data %>% filter(str_detect(!!sex_var, regex("^f", ignore_case = TRUE)))
+  
+  data %>% 
+    ggplot() +
+    aes(x = !!age_grp_var, fill = !!sex_var) +
+    geom_bar(data = males, aes(y = ..count.. * (-1))) + 
+    geom_bar(data = females) + 
+    scale_x_discrete(drop = FALSE) +
+    scale_y_continuous(breaks = y_axis_extent, labels = abs(y_axis_extent)) +
+    coord_flip() +
+    theme(axis.text.x = element_text(angle = 0, hjust = .5))
+  
+}
+
+date_min <- min(df_beni$date_report, na.rm = TRUE) %>% format('%d %b %Y')
+date_max <- max(df_beni$date_report, na.rm = TRUE) %>% format('%d %b %Y')
+date_range <- str_c(date_min, date_max, sep = " - ")
+```
+
+##	Type de cas par date de début de symptômes, Béni, `r date_range`
+```{r}
+plot_beni_hist(fill_var = epi_case_def)
+```
+
+## Courbe épidémiologique par état à l’arrivée, Beni, `r date_range`
+```{r}
+plot_beni_hist(fill_var = status_as_of_current_date)
+```
+
+## Répartition des cas (confirmés et probables) par sexe et tranches d’âge, Beni, `r date_range`
+```{r}
+## Age & sex distribution
+make_age_pyramid(data = df_beni, age_grp_var = age_group, sex_var = sex, x_axis_breaks = 2)
+```
+
+## Répartition des cas par Aire de Santé, Beni, `r date_range`
+```{r}
+plot_beni_bar(fill_var = epi_case_def)
+```
+
+## Répartition des cas par état à l’arrivée et par Aire de Santé, Beni, `r date_range`
+```{r}
+plot_beni_bar(fill_var = status_as_of_current_date)
+```
+
+```{r}
+# Restrict data to past 21 days
+latest_case <- max(df_beni$date_report, na.rm = TRUE)
+
+df_beni_21 <-
+  df_beni %>% 
+  filter(date_onset < latest_case & date_onset >= latest_case - 21)
+
+date_min_21 <- min(df_beni_21$date_report, na.rm = TRUE) %>% format('%d %b %Y')
+date_max_21 <- max(df_beni_21$date_report, na.rm = TRUE) %>% format('%d %b %Y')
+date_range_21 <- str_c(date_min_21, date_max_21, sep = " - ")
+```
+
+## Cas par Aire de santé les 21 derniers jours (`r date_range_21`)
+### By date of onset and case definition
+```{r}
+plot_beni_bar(data = df_beni_21, fill_var = epi_case_def)
+```
+
+### By date of onset and current status
+```{r}
+plot_beni_bar(data = df_beni_21, fill_var = status_as_of_current_date)
+```
+
+### By date of notification and case definition
+```{r}
+plot_beni_bar(data = df_beni_21, fill_var = epi_case_def)
+```
+
+### By date of notification and current status
+```{r}
+plot_beni_bar(data = df_beni_21, fill_var = status_as_of_current_date)
+```
+
+<!-- Alerts -->
+```{r}
+df_alerts <-
+  # readxl::read_excel(excel_file_alerts, sheet = 'Log alertes', skip = 4) %>%
+  df_alerts() %>% 
+  mutate(date = date %>% as_date())
+
+latest_alert <- max(df_alerts$date, na.rm = TRUE)
+  
+df_alerts <-
+  df_alerts %>% 
+  filter(date >= latest_alert - 21) %>% 
+  select(date, as, quarter, ccs, statut_initial) %>% 
+  replace_na(list(statut_initial = 'Inconnu')) %>% 
+  mutate(
+    validated = 
+      case_when(
+        ccs %in% c("Cas suspect", "Décès suspect") ~ 'Validées',
+        # ccs %in% "Invalidée" ~ 'Invalidées',
+        is.na(ccs) | ccs %in% "Selectionnez" ~ "Inconnu",
+        # TRUE ~ NA_character_
+        TRUE ~ 'Invalidées'
+      ) %>% 
+      fct_relevel(c("Validées", "Invalidées", "Inconnu")),
+    statut_initial = 
+      statut_initial %>% 
+      fct_relevel(c("Vivant", "Décédé", "Inconnu"))
+  )
+
+date_min_alert <- min(df_alerts$date, na.rm = TRUE) %>% format('%d %b %Y')
+date_max_alert <- max(df_alerts$date, na.rm = TRUE) %>% format('%d %b %Y')
+date_range_alert <- str_c(date_min_alert, date_max_alert, sep = " - ")
+```
+
+# Alerts pendant les 21 derniers jours (`r date_range_alert`)
+## Nombre d’alertes notifiés par status de validation
+```{r}
+plot_beni_hist(data = df_alerts, fill_var = validated)
+```
+
+## Nombre d’alertes notifiés par status du cas
+```{r}
+plot_beni_hist(data = df_alerts, fill_var = statut_initial)
+```
+
+## Alertes par status de validation, par Aire de santé
+```{r}
+plot_beni_bar(data = df_alerts, fill_var = validated, geo_var = as)
+```
+
+## Alertes par status du cas, par Aire de santé
+```{r}
+plot_beni_bar(data = df_alerts, fill_var = statut_initial, geo_var = as)
+```
+
+## Alertes par status du cas, par Aire de santé
+```{r}
+plot_beni_bar(data = df_alerts, fill_var = validated, geo_var = quarter)
+```
+
+## Alertes par status du cas, par quartier
+```{r}
+plot_beni_bar(data = df_alerts, fill_var = statut_initial, geo_var = quarter)
+```
+
+# ANALYSE RAPIDE ZONE BENI BASE EPI VHF A LA DATE DU `r date_max`
+
+## Répartition cas probable / confirmés, zone sanitaire de Beni (RDC), `r date_range`
+
+```{r}
+tab_case_def <- 
+  df_beni %>% 
+  count(epi_case_def) %>% 
+  adorn_totals("row")
+
+tab_case_def %>% 
+  left_join(
+    tab_case_def %>% 
+      adorn_percentages('col') %>% 
+      adorn_pct_formatting(),
+    by = 'epi_case_def'
+  ) %>% 
+  set_names(
+    'Case def.', 'No.', '%'
+  ) %>%
+  kable(booktabs = TRUE) %>% 
+  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
+```
+
+## Répartition sexe probable / confirmés, zone sanitaire de Beni (RDC), `r date_range`
+```{r}
+tab_case_def_sex <-
+  df_beni %>% 
+  count(epi_case_def, sex) %>% 
+  spread(epi_case_def, n) %>% 
+  adorn_totals("row")
+
+tab_case_def_sex %>% 
+  left_join(
+    tab_case_def_sex %>% 
+      adorn_percentages('col') %>% 
+      adorn_pct_formatting(),
+    by = c('sex')
+  ) %>% 
+  select(Sex = 1, N = 2, `%` = 4, N = 3, `%` = 5) %>% 
+  kable(booktabs = TRUE) %>% 
+  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
+  # add_header_above(c(" " = 1, "Confirmé" = 2, "Probable" = 2))
+```
+
+## Paramètres liés aux âges des cas probables / confirmés, zone sanitaire de Beni (RDC), `r date_range`
+
+```{r}
+quantile(df_beni$age, na.rm = TRUE) %>% 
+  kable(col.names = "Quantile", booktabs = TRUE) %>% 
+  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
+```
+
+## Les délais entre L'apparition des signes et L'admission au CTE, zone sanitaire de Beni (RDC), `r date_range`
+
+```{r}
+df_beni %>% 
+  mutate(delay = date_isolation_current - date_onset) %>% 
+  pull(delay) %>% 
+  quantile(na.rm = TRUE) %>% 
+  kable(col.names = "Quantile", booktabs = TRUE) %>% 
+  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
+```
+
+## la provenance des patients selon les aires de santé, zone sanitaire de Beni (RDC), `r date_range`
+```{r}
+tab_zone_sanitaire <-
+  df_beni %>% 
+  mutate(
+    parish_res = 
+      case_when(
+        parish_res %in% c("BUTSILU", "BUTSULI") ~ 'BUTSILI',
+        parish_res %in% c("KALONGO", "KALONGO/RWANGOMA") ~ 'RWANGOMA',
+        parish_res %in% c("KANZULI", "KANZULI - NZULI") ~ 'KANZULINZULI',
+        TRUE ~ parish_res
+      )
+  ) %>% 
+  count(parish_res) %>% 
+  arrange(desc(n)) %>% 
+  adorn_totals('row')
+
+tab_zone_sanitaire %>% 
+  left_join(
+    tab_zone_sanitaire %>% 
+      adorn_percentages('col') %>% 
+      adorn_pct_formatting(),
+    by = c('parish_res')
+  ) %>% 
+  set_names(
+    'Zone sanitaire', 'No.', '%'
+  ) %>% 
+  kable(booktabs = TRUE) %>% 
+  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
+```
+
+## la provenance des patients selon les quartiers, zone sanitaire de Beni (RDC), `r date_range`
+```{r, longtable = TRUE, booktabs = TRUE}
+tab_quartier <-
+  df_beni %>% 
+  count(quarter) %>% 
+  arrange(desc(n)) %>% 
+  adorn_totals('row')
+
+tab_quartier %>% 
+  left_join(
+    tab_quartier %>% 
+      adorn_percentages('col') %>% 
+      adorn_pct_formatting(),
+    by = c('quarter')
+  ) %>% 
+  set_names(
+    'Quartier', 'No.', '%'
+  ) %>% 
+  kable(booktabs = TRUE) %>% 
+  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
+```
+
+<!-- ## pourcentage des décès selon l'arrivée ou non au CTE, zone sanitaire de Beni (RDC), `r date_range` -->
+
