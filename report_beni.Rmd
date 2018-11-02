@@ -392,8 +392,8 @@ tab_case_def_sex %>%
   ) %>% 
   select(Sex = 1, N = 2, `%` = 4, N = 3, `%` = 5) %>% 
   kable(booktabs = TRUE) %>% 
-  kable_styling(latex_options = c("striped", "hold_position", "repeat_header"))
-  # add_header_above(c(" " = 1, "Confirmé" = 2, "Probable" = 2))
+  kable_styling(latex_options = c("striped", "hold_position", "repeat_header")) %>% 
+  add_header_above(c(" " = 1, "Confirmé" = 2, "Probable" = 2))
 ```
 
 ## Paramètres liés aux âges des cas probables / confirmés, zone sanitaire de Beni (RDC), `r date_range`
