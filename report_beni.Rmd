@@ -215,6 +215,22 @@ date_range <- str_c(date_min, date_max, sep = " - ")
 plot_beni_hist(fill_var = epi_case_def)
 ```
 
+##	Type de cas par tranche d'âge et date de début de symptômes, Béni, `r date_range`
+```{r}
+df_beni %>% 
+  mutate(
+    age_group2 = 
+      case_when(
+        age >= 15 ~ "15 ans +",
+        TRUE ~ age_group %>% as.character()
+      ) %>% 
+      fct_relevel("<5 ans", "5-14 ans", "15 ans +")
+  ) %>% 
+  plot_beni_hist(fill_var = epi_case_def) +
+  facet_wrap(~ age_group2, ncol = 1)
+```
+
+
 ## Courbe épidémiologique par état à l’arrivée, Beni, `r date_range`
 ```{r}
 plot_beni_hist(fill_var = status_as_of_current_date)
